@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application") version "8.4.0"
     kotlin("android") version "1.9.0"
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -81,4 +83,8 @@ dependencies {
 
     // Material3 for Compose
     implementation("androidx.compose.material3:material3")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
 }
