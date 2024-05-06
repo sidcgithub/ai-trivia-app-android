@@ -1,4 +1,4 @@
-package com.triviagenai.triviagen.feature.trivia.domain.model
+package com.triviagenai.triviagen.trivia.domain.model
 
 data class TriviaQuestion(
     val question: String,

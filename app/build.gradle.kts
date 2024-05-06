@@ -61,6 +61,8 @@ val lifecycleRuntimeKtxVersion by extra("2.7.0")
 val activityComposeVersion by extra("1.9.0")
 val composeBomVersion by extra("2023.08.00")
 val hiltVersion by extra("2.50")
+val coroutineVersion by extra("1.7.1")
+val retrofitVersion by extra("2.9.0")
 
 dependencies {
     implementation(platform("androidx.compose:compose-bom:$composeBomVersion"))
@@ -88,4 +90,12 @@ dependencies {
     // Hilt
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion")
 }

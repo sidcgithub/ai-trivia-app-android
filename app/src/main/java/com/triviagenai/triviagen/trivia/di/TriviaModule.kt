@@ -1,7 +1,7 @@
-package com.triviagenai.triviagen.feature.trivia.di
+package com.triviagenai.triviagen.trivia.di
 
-import com.triviagenai.triviagen.feature.trivia.data.repository.TriviaRepositoryImpl
-import com.triviagenai.triviagen.feature.trivia.domain.repository.TriviaRepository
+import com.triviagenai.triviagen.trivia.data.repository.DummyTriviaRepositoryImpl
+import com.triviagenai.triviagen.trivia.domain.repository.TriviaRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,6 +13,6 @@ abstract class TriviaModule {
 
     @Binds
     abstract fun bindTriviaRepository(
-        triviaRepositoryImpl: TriviaRepositoryImpl
+        dummyTriviaRepositoryImpl: DummyTriviaRepositoryImpl
     ): TriviaRepository
 }
