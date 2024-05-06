@@ -7,4 +7,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TriviaQuestionViewModel @Inject constructor(getTriviaQuestionsUseCase: GetTriviaQuestionsUseCase) :
-    ViewModel()
+    ViewModel() {
+
+}
