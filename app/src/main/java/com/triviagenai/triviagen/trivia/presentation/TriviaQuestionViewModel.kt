@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class TriviaQuestionViewModel @Inject constructor(getTriviaQuestionsUseCase: GetTriviaQuestionsUseCase) :
-    ViewModel() {
+class TriviaQuestionViewModel @Inject constructor(getTriviaQuestionsUseCase: GetTriviaQuestionsUseCase) : ViewModel() {
 
 }

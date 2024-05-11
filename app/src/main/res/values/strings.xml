@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TriviaGen</string>
+    <string name="quick_game">Quick game</string>
+    <string name="exit">Exit</string>
+    <string name="options">Options</string>
 </resources>
