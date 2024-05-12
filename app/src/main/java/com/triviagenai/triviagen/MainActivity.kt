@@ -20,11 +20,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TriviaGenTheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    MainMenuScreen()
-                }
+                MainMenuScreen()
             }
         }
     }
