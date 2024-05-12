@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="element_large">180dp</dimen>
+    <dimen name="spacer_medium">50dp</dimen>
+</resources>

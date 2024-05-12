@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -31,10 +32,10 @@ fun MainMenuScreen() {
                 painter = painterResource(id = R.drawable.yellow_app_logo),
                 contentDescription = "App logo",
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(dimensionResource(id = R.dimen.element_large))
             )
             
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_medium)))
             
             TextButton(
                 onClick = { /*navigates to the trivia screen*/ }
