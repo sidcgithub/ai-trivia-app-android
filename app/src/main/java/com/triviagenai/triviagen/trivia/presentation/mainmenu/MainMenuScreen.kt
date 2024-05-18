@@ -17,44 +17,46 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.triviagenai.triviagen.MainActivity
 import com.triviagenai.triviagen.R
+import com.triviagenai.triviagen.core.presentation.ComposableData
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 
 @Composable
 fun MainMenuScreen() {
     TriviaGenScaffold {
         Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(id = R.drawable.yellow_app_logo),
                 contentDescription = "App logo",
-                modifier = Modifier
-                    .size(dimensionResource(id = R.dimen.element_large))
+                modifier = Modifier.size(dimensionResource(id = R.dimen.element_large))
             )
-            
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_medium)))
-            
-            TextButton(
-                onClick = { /*navigates to the trivia screen*/ }
-            ) {
-                Text(stringResource(R.string.quick_game))
-            }
 
-            TextButton(
-                onClick = { /*navigates to the options screen*/ }
-            ) {
-                Text(stringResource(R.string.options))
-            }
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_medium)))
 
             val activity = LocalContext.current as MainActivity
+            val textButtonData = listOf(
+                ComposableData(
+                    onClick = { /*navigates to the trivia screen*/ },
+                    text = stringResource(R.string.quick_game)
+                ),
+                ComposableData(
+                    onClick = { /*navigates to the options screen*/ },
+                    text = stringResource(R.string.options)
+                ),
+                ComposableData(
+                    onClick = { activity.finish() },
+                    text = stringResource(R.string.exit)
+                )
+            )
 
-            TextButton(
-                onClick = { activity.finish() }
-            ) {
-                Text(stringResource(R.string.exit))
+            for (i in textButtonData.indices) {
+                TextButton(
+                    onClick = textButtonData[i].onClick
+                ) {
+                    Text(textButtonData[i].text)
+                }
             }
         }
-     }
+    }
 }
