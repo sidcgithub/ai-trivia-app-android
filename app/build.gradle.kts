@@ -57,12 +57,14 @@ val coreKtxVersion by extra("1.13.1")
 val junitVersion by extra("4.13.2")
 val androidxJunitVersion by extra("1.1.5")
 val espressoCoreVersion by extra("3.5.1")
-val lifecycleRuntimeKtxVersion by extra("2.7.0")
+val lifecycleRuntimeKtxVersion by extra("2.8.0")
 val activityComposeVersion by extra("1.9.0")
 val composeBomVersion by extra("2023.08.00")
-val hiltVersion by extra("2.50")
+val hiltVersion by extra("2.51")
 val coroutineVersion by extra("1.7.1")
 val retrofitVersion by extra("2.9.0")
+val moshiVersion by extra("1.15.1")
+val moshiConverter by extra("2.9.0")
 
 dependencies {
     implementation(platform("androidx.compose:compose-bom:$composeBomVersion"))
@@ -90,12 +92,17 @@ dependencies {
     // Hilt
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-moshi:$moshiConverter")
+    implementation("com.squareup.moshi:moshi:$moshiVersion")
+    implementation("com.squareup.moshi:moshi-kotlin:$moshiVersion")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
+    implementation("com.squareup.moshi:moshi-adapters:$moshiVersion")
     implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion")
 }
