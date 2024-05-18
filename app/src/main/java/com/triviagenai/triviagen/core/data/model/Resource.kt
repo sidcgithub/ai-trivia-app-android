@@ -1,4 +1,4 @@
-package com.triviagenai.triviagen.trivia.data.model
+package com.triviagenai.triviagen.core.data.model
 
 sealed class Resource<T>(
     val data: T? = null,

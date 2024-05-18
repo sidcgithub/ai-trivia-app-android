@@ -1,6 +1,6 @@
 package com.triviagenai.triviagen.trivia.domain.usecase
 
-import com.triviagenai.triviagen.trivia.data.model.Resource
+import com.triviagenai.triviagen.core.data.model.Resource
 import com.triviagenai.triviagen.trivia.data.model.Round
 import com.triviagenai.triviagen.trivia.domain.model.TriviaQuestion
 import com.triviagenai.triviagen.trivia.domain.model.mapToTriviaQuestions

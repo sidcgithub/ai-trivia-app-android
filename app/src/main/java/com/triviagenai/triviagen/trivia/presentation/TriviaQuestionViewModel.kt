@@ -16,6 +16,10 @@ class TriviaQuestionViewModel @Inject constructor(
     private val getTriviaQuestionsUseCase: GetTriviaQuestionsUseCase
 ) : ViewModel() {
 
+    companion object {
+        const val POINTS = 5
+    }
+
     private val _uiState = MutableStateFlow<TriviaUIState>(TriviaUIState.Loading)
 
     val uiState: StateFlow<TriviaUIState> = _uiState
@@ -65,7 +69,7 @@ class TriviaQuestionViewModel @Inject constructor(
             val currentQuestion = currentState.questions[currentState.currentQuestionIndex]
             if (currentQuestion.options[selectedOptionIndex] == currentQuestion.answer) {
                 _uiState.value =
-                    currentState.copy(score = currentState.score + currentQuestion.points)
+                    currentState.copy(score = currentState.score + POINTS)
             }
             nextQuestion()
         }

@@ -1,7 +1,7 @@
 package com.triviagenai.triviagen.trivia.data.repository
 
 import com.triviagenai.triviagen.core.data.api.TriviaGenApiService
-import com.triviagenai.triviagen.trivia.data.model.Resource
+import com.triviagenai.triviagen.core.data.model.Resource
 import com.triviagenai.triviagen.trivia.data.model.Round
 import com.triviagenai.triviagen.trivia.domain.repository.TriviaRepository
 import kotlinx.coroutines.flow.Flow
