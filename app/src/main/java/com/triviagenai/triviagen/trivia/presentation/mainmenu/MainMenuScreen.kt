@@ -24,7 +24,9 @@ import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 fun MainMenuScreen() {
     TriviaGenScaffold {
         Column(
-            modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(id = R.drawable.yellow_app_logo),
