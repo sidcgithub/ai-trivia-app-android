@@ -1,8 +1,7 @@
 package com.triviagenai.triviagen.trivia.data.repository
 
-import com.triviagenai.triviagen.core.data.api.TriviaGenApiService
-import com.triviagenai.triviagen.trivia.domain.repository.TriviaRepository
 import com.triviagenai.triviagen.trivia.domain.model.TriviaQuestion
+import com.triviagenai.triviagen.trivia.domain.repository.TriviaRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,12 +16,12 @@ class DummyTriviaRepositoryImpl @Inject constructor() : TriviaRepository {
             TriviaQuestion(
                 question = "What is the chemical symbol for the element oxygen?",
                 options = listOf("O", "Ox", "Om", "Op"),
-                answer = "O"
+                answer = 0
             ),
             TriviaQuestion(
                 question = "Which planet is known as the Red Planet?",
                 options = listOf("Earth", "Mars", "Jupiter", "Venus"),
-                answer = "Mars"
+                answer = 1
             )
         )
         emit(cachedQuestions!!)
