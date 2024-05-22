@@ -12,6 +12,6 @@ fun Round.TriviaRound.mapToTriviaQuestions() = questions.map { question ->
     TriviaQuestion(
         question.question,
         question.options,
-        question.options[question.answer]
+        question.answer
     )
 }
