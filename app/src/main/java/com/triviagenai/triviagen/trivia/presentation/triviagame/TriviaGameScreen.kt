@@ -8,30 +8,20 @@ import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
-import com.triviagenai.triviagen.trivia.data.repository.DummyTriviaRepositoryImpl
 import com.triviagenai.triviagen.trivia.domain.model.TriviaQuestion
 
 @Composable
 fun TriviaGameScreen() {
-    val fakeData =
-        DummyTriviaRepositoryImpl()
-            .fetchTriviaQuestions("what?")
-            .collectAsState(
-                initial = listOf(
-                    TriviaQuestion(
-                        "null",
-                        listOf("1", "2", "3", "4"),
-                        2
-                    )
-                )
-            ).value
+    val fakeData = listOf(
+        TriviaQuestion("What?", listOf("1", "2"), 0),
+        TriviaQuestion("What?", listOf("1", "2"), 0),
+    )
 
     TriviaGenScaffold {
         Column(
