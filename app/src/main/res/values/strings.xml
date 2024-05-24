@@ -3,4 +3,11 @@
     <string name="quick_game">Quick game</string>
     <string name="exit">Exit</string>
     <string name="options">Options</string>
+    <string name="or">or</string>
+    <string name="random_round">Random Round</string>
+    <string name="start_round">Start Round</string>
+    <string name="topic">topic</string>
+    <string name="view_answers">View Answers</string>
+    <string name="home">Home</string>
+    <string name="retry">Retry</string>
 </resources>
