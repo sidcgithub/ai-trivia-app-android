@@ -67,7 +67,7 @@ class TriviaQuestionViewModel @Inject constructor(
         val currentState = _uiState.value
         if (currentState is TriviaUIState.Success) {
             val currentQuestion = currentState.questions[currentState.currentQuestionIndex]
-            if (currentQuestion.options[selectedOptionIndex] == currentQuestion.answer) {
+            if (selectedOptionIndex == currentQuestion.answer) {
                 _uiState.value =
                     currentState.copy(score = currentState.score + POINTS)
             }
