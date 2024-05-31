@@ -24,12 +24,13 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
 @Composable
-fun ResultsScreen() {
+fun ResultsScreen(navController: NavHostController) {
     val score = 0.51f
 
     TriviaGenScaffold {

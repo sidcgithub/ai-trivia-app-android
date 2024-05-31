@@ -23,15 +23,20 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
+import com.triviagenai.triviagen.TriviaGameRoute
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
 @Composable
-fun RoundSetupScreen() {
+fun RoundSetupScreen(navController: NavHostController) {
     var topicValue by remember { mutableStateOf("") }
 
-    TriviaGenScaffold(backNavigationIcon = true) {
+    TriviaGenScaffold(
+        backNavigationIcon = true,
+        navController = navController
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize(),
@@ -45,20 +50,21 @@ fun RoundSetupScreen() {
                     .padding(bottom = dimensionResource(id = R.dimen.padding_small)),
                 value = topicValue,
                 onValueChange = { topicValue = it },
-                label = { Text("Label") },
+                label = { Text("Trivia Topic") },
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.White,
                     unfocusedBorderColor = Color.White,
                     focusedTextColor = Color.White,
                     unfocusedTextColor = Color.White,
                     unfocusedLabelColor = Color.White,
-                    focusedLabelColor = Color.White
+                    focusedLabelColor = Color.White,
+                    cursorColor = Color.White
                 ),
                 singleLine = true
             )
 
             ElevatedButton(
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate(TriviaGameRoute) },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
@@ -79,7 +85,7 @@ fun RoundSetupScreen() {
             )
 
             ElevatedButton(
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate(TriviaGameRoute) },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))

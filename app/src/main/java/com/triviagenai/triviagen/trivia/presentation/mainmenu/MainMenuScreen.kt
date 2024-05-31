@@ -15,12 +15,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.MainActivity
 import com.triviagenai.triviagen.R
+import com.triviagenai.triviagen.RoundSetupRoute
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 
 @Composable
-fun MainMenuScreen() {
+fun MainMenuScreen(navController: NavHostController) {
     TriviaGenScaffold {
         Column(
             modifier = Modifier
@@ -37,7 +39,11 @@ fun MainMenuScreen() {
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_medium)))
             
             TextButton(
-                onClick = { /*navigates to the trivia screen*/ }
+                onClick = {
+                    navController.navigate(
+                        RoundSetupRoute
+                    )
+                }
             ) {
                 Text(stringResource(R.string.quick_game))
             }

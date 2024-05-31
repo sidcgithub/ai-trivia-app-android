@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
@@ -26,6 +27,7 @@ import com.triviagenai.triviagen.ui.theme.RoyalPurple
 @Composable
 fun TriviaGenScaffold(
     backNavigationIcon: Boolean = false,
+    navController: NavController? = null,
     content: @Composable () -> Unit
 ) {
     Scaffold(
@@ -40,7 +42,7 @@ fun TriviaGenScaffold(
                     if(backNavigationIcon) {
                         IconButton(
                             onClick = {
-
+                                navController?.popBackStack()
                             },
                         ) {
                             Icon(

@@ -1,8 +1,11 @@
+import org.jetbrains.kotlin.config.JvmAnalysisFlags.useIR
+
 plugins {
     id("com.android.application") version "8.4.0"
     kotlin("android") version "1.9.0"
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0"
 }
 
 android {
@@ -60,11 +63,13 @@ val espressoCoreVersion by extra("3.5.1")
 val lifecycleRuntimeKtxVersion by extra("2.8.0")
 val activityComposeVersion by extra("1.9.0")
 val composeBomVersion by extra("2023.08.00")
-val hiltVersion by extra("2.51")
+val hiltVersion by extra("2.51.1")
 val coroutineVersion by extra("1.7.1")
 val retrofitVersion by extra("2.9.0")
 val moshiVersion by extra("1.15.1")
 val moshiConverter by extra("2.9.0")
+val composeNavigation by extra("2.8.0-beta02")
+val serialization by extra("1.6.3")
 
 dependencies {
     implementation(platform("androidx.compose:compose-bom:$composeBomVersion"))
@@ -105,4 +110,8 @@ dependencies {
     kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
     implementation("com.squareup.moshi:moshi-adapters:$moshiVersion")
     implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion")
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:$composeNavigation")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
 }
