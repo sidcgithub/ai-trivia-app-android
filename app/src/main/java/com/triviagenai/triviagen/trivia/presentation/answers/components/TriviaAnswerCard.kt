@@ -50,7 +50,7 @@ fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
 
             val checkedOption = 1 //TODO replace with state with real user answer. This value is for testing only.
 
-            for (i in 0..3) {
+            for (i in 0..triviaQuestion.options.lastIndex) {
                 Text(
                     text = triviaQuestion.options[i],
                     modifier = Modifier
@@ -71,7 +71,6 @@ fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
                 )
                 Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
             }
-
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
         }
     }

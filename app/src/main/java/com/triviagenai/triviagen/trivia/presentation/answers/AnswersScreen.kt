@@ -13,11 +13,14 @@ import com.triviagenai.triviagen.trivia.presentation.answers.components.TriviaAn
 @Composable
 fun AnswersScreen(navController: NavHostController) {
     val trivias = listOf(
-        TriviaQuestion("What?", listOf("1", "2"), 0),
-        TriviaQuestion("What?", listOf("1", "2"), 0),
+        TriviaQuestion("What is the largest animal?", listOf("Option", "Correct answer", "Option", "Wrong answer"), 1),
+        TriviaQuestion("When was the prehistory?", listOf("1", "2", "Never", "Tomorrow"), 0),
     )
 
-    TriviaGenScaffold(backNavigationIcon = true) {
+    TriviaGenScaffold(
+        backNavigationIcon = true,
+        navController = navController
+    ) {
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
