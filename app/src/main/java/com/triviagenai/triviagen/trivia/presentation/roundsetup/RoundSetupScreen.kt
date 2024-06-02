@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
-import com.triviagenai.triviagen.TriviaGameRoute
+import com.triviagenai.triviagen.core.presentation.Route
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
@@ -64,7 +64,7 @@ fun RoundSetupScreen(navController: NavHostController) {
             )
 
             ElevatedButton(
-                onClick = { navController.navigate(TriviaGameRoute) },
+                onClick = { navController.navigate(Route.TriviaGameRoute) },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
@@ -85,7 +85,7 @@ fun RoundSetupScreen(navController: NavHostController) {
             )
 
             ElevatedButton(
-                onClick = { navController.navigate(TriviaGameRoute) },
+                onClick = { navController.navigate(Route.TriviaGameRoute) },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))

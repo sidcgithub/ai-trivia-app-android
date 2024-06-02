@@ -25,10 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.triviagenai.triviagen.AnswersRoute
-import com.triviagenai.triviagen.MainManuRoute
 import com.triviagenai.triviagen.R
-import com.triviagenai.triviagen.RoundSetupRoute
+import com.triviagenai.triviagen.core.presentation.Route
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
@@ -61,7 +59,7 @@ fun ResultsScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_medium)))
 
             OutlinedButton(
-                onClick = { navController.navigate(AnswersRoute) },
+                onClick = { navController.navigate(Route.AnswersRoute) },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
@@ -83,11 +81,11 @@ fun ResultsScreen(navController: NavHostController) {
             val buttonData = listOf(
                 ButtonData(
                     text = stringResource(R.string.retry),
-                    onClick = { navController.navigate(RoundSetupRoute) }
+                    onClick = { navController.navigate(Route.RoundSetupRoute) }
                 ),
                 ButtonData(
                     text = stringResource(R.string.home),
-                    onClick = { navController.navigate(MainManuRoute) }
+                    onClick = { navController.navigate(Route.MainMenuRoute) }
                 )
             )
 

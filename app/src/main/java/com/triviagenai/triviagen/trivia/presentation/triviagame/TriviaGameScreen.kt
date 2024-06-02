@@ -23,8 +23,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
-import com.triviagenai.triviagen.ResultsRoute
-import com.triviagenai.triviagen.TriviaGameRoute
+import com.triviagenai.triviagen.core.presentation.Route
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.trivia.domain.model.TriviaQuestion
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
@@ -63,8 +62,8 @@ fun TriviaGameScreen(navController: NavHostController) {
                         CoroutineScope(Dispatchers.Main).launch {
                             if(questionIndex == fakeData.lastIndex) {
                                 delay(3000)
-                                navController.navigate(ResultsRoute) {
-                                    popUpTo(TriviaGameRoute) { inclusive = true }
+                                navController.navigate(Route.ResultsRoute) {
+                                    popUpTo(Route.TriviaGameRoute) { inclusive = true }
                                 }
                             }
                             delay(2000)

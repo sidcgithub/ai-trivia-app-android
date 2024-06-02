@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.MainActivity
 import com.triviagenai.triviagen.R
-import com.triviagenai.triviagen.RoundSetupRoute
+import com.triviagenai.triviagen.core.presentation.Route
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 
 @Composable
@@ -41,7 +41,7 @@ fun MainMenuScreen(navController: NavHostController) {
             TextButton(
                 onClick = {
                     navController.navigate(
-                        RoundSetupRoute
+                        Route.RoundSetupRoute
                     )
                 }
             ) {

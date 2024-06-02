@@ -3,11 +3,13 @@ package com.triviagenai.triviagen
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.R
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.triviagenai.triviagen.core.presentation.Route
 import com.triviagenai.triviagen.trivia.presentation.answers.AnswersScreen
 import com.triviagenai.triviagen.trivia.presentation.mainmenu.MainMenuScreen
 import com.triviagenai.triviagen.trivia.presentation.results.ResultsScreen
@@ -29,25 +31,25 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navController,
-                    startDestination = MainManuRoute
+                    startDestination = Route.MainMenuRoute
                 ) {
-                    composable<MainManuRoute> {
+                    composable<Route.MainMenuRoute> {
                         MainMenuScreen(navController = navController)
                     }
 
-                    composable<RoundSetupRoute> {
+                    composable<Route.RoundSetupRoute> {
                         RoundSetupScreen(navController = navController)
                     }
 
-                    composable<TriviaGameRoute> {
+                    composable<Route.TriviaGameRoute> {
                         TriviaGameScreen(navController = navController)
                     }
 
-                    composable<ResultsRoute> {
+                    composable<Route.ResultsRoute> {
                         ResultsScreen(navController = navController)
                     }
 
-                    composable<AnswersRoute> {
+                    composable<Route.AnswersRoute> {
                         AnswersScreen(navController = navController)
                     }
                 }
@@ -55,18 +57,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-@Serializable
-object MainManuRoute
-
-@Serializable
-object RoundSetupRoute
-
-@Serializable
-object TriviaGameRoute
-
-@Serializable
-object ResultsRoute
-
-@Serializable
-object AnswersRoute
