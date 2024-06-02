@@ -112,4 +112,5 @@ dependencies {
     // Navigation
     implementation("androidx.navigation:navigation-compose:$composeNavigation")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.7.7")
 }

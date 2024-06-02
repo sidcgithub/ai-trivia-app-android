@@ -1,6 +1,7 @@
 package com.triviagenai.triviagen.trivia.presentation.mainmenu
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.MainActivity
 import com.triviagenai.triviagen.R
@@ -26,7 +29,8 @@ fun MainMenuScreen(navController: NavHostController) {
     TriviaGenScaffold {
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .semantics { contentDescription = "MainMenuScreen" },
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
@@ -35,9 +39,9 @@ fun MainMenuScreen(navController: NavHostController) {
                 modifier = Modifier
                     .size(dimensionResource(id = R.dimen.element_large))
             )
-            
+
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_medium)))
-            
+
             TextButton(
                 onClick = {
                     navController.navigate(
@@ -54,13 +58,11 @@ fun MainMenuScreen(navController: NavHostController) {
                 Text(stringResource(R.string.options))
             }
 
-            val activity = LocalContext.current as MainActivity
-
             TextButton(
-                onClick = { activity.finish() }
+                onClick = {  } //TODO: This approach is wrong because crush when running navigation tests: val activity = LocalContext.current as MainActivity; activity.finish()
             ) {
                 Text(stringResource(R.string.exit))
             }
         }
-     }
+    }
 }

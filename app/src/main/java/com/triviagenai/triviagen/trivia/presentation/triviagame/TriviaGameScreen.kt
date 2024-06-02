@@ -20,6 +20,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
@@ -45,7 +47,8 @@ fun TriviaGameScreen(navController: NavHostController) {
     TriviaGenScaffold {
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .semantics { contentDescription = "TriviaGameScreen" },
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
