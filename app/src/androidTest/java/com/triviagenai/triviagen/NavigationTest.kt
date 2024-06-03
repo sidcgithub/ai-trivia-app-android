@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
+import com.triviagenai.triviagen.core.presentation.navigation.NavGraph
 import com.triviagenai.triviagen.core.presentation.navigation.Route
 import org.junit.Before
 import org.junit.Rule
@@ -27,7 +28,7 @@ class NavigationTest {
                 ComposeNavigator()
             )
             
-            TriviaNavigation(navController = navController, startDestination = Route.MainMenuRoute)
+            NavGraph(navController = navController, startDestination = Route.MainMenuRoute)
         }
     }
 
