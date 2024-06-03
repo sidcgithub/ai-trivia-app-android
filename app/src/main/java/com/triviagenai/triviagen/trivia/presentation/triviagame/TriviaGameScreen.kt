@@ -25,7 +25,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
-import com.triviagenai.triviagen.core.presentation.Route
+import com.triviagenai.triviagen.core.presentation.navigation.Route
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.trivia.domain.model.TriviaQuestion
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
@@ -41,8 +41,30 @@ fun TriviaGameScreen(navController: NavHostController) {
         TriviaQuestion("When was the prehistory?", listOf("1", "2", "Never", "Tomorrow"), 0),
     )
 
-    var answer by remember { mutableIntStateOf(-1) }
+    var delayMiliseconds = 1500L
+    var userAnswerChoiceIndex by remember { mutableIntStateOf(-1) }
     var questionIndex by remember { mutableIntStateOf(0) }
+    val triviaOptionOnClick: (Int) -> Unit = { index ->
+        userAnswerChoiceIndex = index
+        CoroutineScope(Dispatchers.Main).launch {
+            if(questionIndex == fakeData.lastIndex) {
+                delay(delayMiliseconds)
+                navController.navigate(Route.ResultsRoute) {
+                    popUpTo(Route.TriviaGameRoute) { inclusive = true }
+                }
+            }
+            delay(delayMiliseconds)
+            questionIndex++
+            userAnswerChoiceIndex = -1
+        }
+    }
+    val gradientColors: (Int) -> List<Color> = { index ->
+        when(index) {
+            fakeData[questionIndex].answer -> listOf(RoyalPurple, Color.Green)
+            userAnswerChoiceIndex -> listOf(RoyalPurple, Color.Red)
+            else -> listOf(RoyalPurple, RoyalPurple)
+        }
+    }
 
     TriviaGenScaffold {
         Column(
@@ -60,31 +82,15 @@ fun TriviaGameScreen(navController: NavHostController) {
 
             fakeData[questionIndex].options.forEachIndexed { index, trivia ->
                 Button(
-                    onClick = {
-                        answer = index
-                        CoroutineScope(Dispatchers.Main).launch {
-                            if(questionIndex == fakeData.lastIndex) {
-                                delay(3000)
-                                navController.navigate(Route.ResultsRoute) {
-                                    popUpTo(Route.TriviaGameRoute) { inclusive = true }
-                                }
-                            }
-                            delay(2000)
-                            questionIndex++
-                            answer = -1
-                        }
-                    },
+                    onClick = { triviaOptionOnClick(index) },
                     shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                     modifier = Modifier
                         .padding(dimensionResource(id = R.dimen.padding_small))
                         .width(dimensionResource(id = R.dimen.element_xlarge))
                         .border(
-                            if (answer > -1) 4.dp else (-1).dp,
+                            if (userAnswerChoiceIndex > -1) 4.dp else (-1).dp,
                             Brush.linearGradient(
-                                colors =
-                                    if (index == fakeData[0].answer) listOf(RoyalPurple, Color.Green)
-                                    else if (index == answer) listOf(RoyalPurple, Color.Red)
-                                    else listOf(RoyalPurple, RoyalPurple),
+                                colors = gradientColors.invoke(index),
                                 start = Offset(0.0f, 0.0f),
                                 end = Offset(100.0f, 300.0f)
                             ),

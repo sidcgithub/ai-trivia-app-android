@@ -27,7 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
-import com.triviagenai.triviagen.core.presentation.Route
+import com.triviagenai.triviagen.core.presentation.navigation.Route
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 

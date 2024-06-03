@@ -1,4 +1,4 @@
-package com.triviagenai.triviagen.core.presentation
+package com.triviagenai.triviagen.core.presentation.navigation
 
 import kotlinx.serialization.Serializable
 
