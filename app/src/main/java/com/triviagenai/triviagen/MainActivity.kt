@@ -37,6 +37,7 @@ class MainActivity : ComponentActivity() {
                 Box(
                     Modifier
                         .fillMaxSize()
+                        // TODO: Replace with a proper navigation system
                         .clickable { if (++screenNumber > 3) screenNumber = 0 }) {
                     when (screenNumber) {
                         0 -> RoundSetupScreen(triviaQuestionViewModel)
