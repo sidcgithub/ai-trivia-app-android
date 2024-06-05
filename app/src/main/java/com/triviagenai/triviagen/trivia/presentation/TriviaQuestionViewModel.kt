@@ -2,6 +2,7 @@ package com.triviagenai.triviagen.trivia.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.triviagenai.triviagen.trivia.domain.model.SelectedAnswerState
 import com.triviagenai.triviagen.trivia.domain.usecase.GetTriviaQuestionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -59,14 +60,14 @@ class TriviaQuestionViewModel @Inject constructor(
         }
     }
 
-    fun fetchRandomTriviaRoundQuestions() {
+    private fun fetchRandomTriviaRoundQuestions() {
         fetchTriviaQuestions(categories.random())
     }
 
     fun processIntent(intent: TriviaIntent) {
         when (intent) {
             is TriviaIntent.SubmitAnswer -> viewModelScope.launch { submitAnswer(intent.selectedOptionIndex) }
-            TriviaIntent.NextQuestion -> nextQuestion()
+            TriviaIntent.RandomTriviaRound -> fetchRandomTriviaRoundQuestions()
         }
     }
 
@@ -85,7 +86,11 @@ class TriviaQuestionViewModel @Inject constructor(
         if (currentState is TriviaUIState.Success) {
             val currentQuestion = currentState.questions[currentState.currentQuestionIndex]
             currentState.questions[currentState.currentQuestionIndex] =
-                currentQuestion.copy(selectedAnswer = selectedOptionIndex)
+                currentQuestion.copy(
+                    selectedAnswer = SelectedAnswerState.Answered(
+                        selectedOptionIndex
+                    )
+                )
             if (selectedOptionIndex == currentQuestion.answer) {
                 _uiState.value =
                     currentState.copy(score = currentState.score + POINTS)
@@ -98,5 +103,5 @@ class TriviaQuestionViewModel @Inject constructor(
 
 sealed class TriviaIntent {
     data class SubmitAnswer(val selectedOptionIndex: Int) : TriviaIntent()
-    object NextQuestion : TriviaIntent()
+    object RandomTriviaRound : TriviaIntent()
 }
