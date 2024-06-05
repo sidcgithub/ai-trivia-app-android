@@ -6,7 +6,7 @@ data class TriviaQuestion(
     val question: String,
     val options: List<String>,
     val answer: Int,
-    val selectedAnswer: Int = -1,
+    val selectedAnswer: SelectedAnswerState = SelectedAnswerState.Unanswered,
 )
 
 fun Round.TriviaRound.mapToTriviaQuestions() = questions.map { question ->
@@ -15,4 +15,9 @@ fun Round.TriviaRound.mapToTriviaQuestions() = questions.map { question ->
         question.options,
         question.answer
     )
+}
+
+sealed class SelectedAnswerState {
+    object Unanswered : SelectedAnswerState()
+    data class Answered(val answer: Int) : SelectedAnswerState()
 }

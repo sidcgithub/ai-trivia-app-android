@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.trivia.presentation.TriviaIntent
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
@@ -80,7 +81,7 @@ fun RoundSetupScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
             )
 
             ElevatedButton(
-                onClick = { triviaQuestionViewModel.fetchRandomTriviaRoundQuestions() },
+                onClick = { triviaQuestionViewModel.processIntent(TriviaIntent.RandomTriviaRound) },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
