@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
-import com.triviagenai.triviagen.trivia.domain.model.SelectedAnswerState
 import com.triviagenai.triviagen.trivia.presentation.TriviaIntent
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.trivia.presentation.TriviaUIState
@@ -35,67 +34,11 @@ fun TriviaGameScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
     var selectedIndex by remember { mutableIntStateOf(-1) }
     TriviaGenScaffold {
         when (triviaRound) {
-            is TriviaUIState.Success ->
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    val questionBlock =
-                        (triviaRound as TriviaUIState.Success).questions[(triviaRound as TriviaUIState.Success).currentQuestionIndex]
-                    Text(
-                        text = questionBlock.question,
-                        modifier = Modifier
-                            .padding(dimensionResource(id = R.dimen.padding_medium))
-                    )
-
-                    questionBlock.options.forEachIndexed { index, trivia ->
-                        Button(
-                            onClick = {
-                                if (questionBlock.selectedAnswer is SelectedAnswerState.Unanswered) {
-                                    selectedIndex = index
-
-                                    triviaQuestionViewModel.processIntent(
-                                        TriviaIntent.SubmitAnswer(
-                                            index
-                                        )
-                                    )
-                                }
-                            },
-                            shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
-                            modifier = Modifier
-                                .padding(dimensionResource(id = R.dimen.padding_small))
-                                .width(dimensionResource(id = R.dimen.element_xlarge))
-                                .border(
-                                    dimensionResource(id = R.dimen.border_width),
-                                    if (selectedIndex == index && questionBlock.selectedAnswer !is SelectedAnswerState.Unanswered) {
-                                        if (selectedIndex == questionBlock.answer) Color.Green else Color.Red
-                                    } else {
-                                        Color.Gray
-                                    },
-                                    AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))
-                                )
-                                .shadow(
-                                    elevation = dimensionResource(id = R.dimen.elevation_small),
-                                    ambientColor = if (selectedIndex == index && questionBlock.selectedAnswer !is SelectedAnswerState.Unanswered) {
-                                        if (selectedIndex == questionBlock.answer) LightGreen else LightRed
-                                    } else {
-                                        Color.Transparent
-                                    },
-                                    spotColor = if (selectedIndex == index && questionBlock.selectedAnswer !is SelectedAnswerState.Unanswered) {
-                                        if (selectedIndex == questionBlock.answer) LightGreen else LightRed
-                                    } else {
-                                        Color.Gray
-                                    }
-                                )
-                        ) {
-                            Text(
-                                text = trivia,
-                                color = Color.White
-                            )
-                        }
-                    }
-                }
+            is TriviaUIState.Success -> DisplayGameContent(
+                triviaRound,
+                selectedIndex,
+                triviaQuestionViewModel
+            )
 
             is TriviaUIState.Error -> Box(modifier = Modifier.fillMaxSize()) {
                 Text(
@@ -108,6 +51,69 @@ fun TriviaGameScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
                 Text(
                     text = "Loading...",
                     modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DisplayGameContent(
+    triviaRound: TriviaUIState,
+    selectedIndex: Int,
+    triviaQuestionViewModel: TriviaQuestionViewModel
+) {
+    var updatedIndex = selectedIndex
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val questionBlock = (triviaRound as TriviaUIState.Success).questions[(triviaRound as TriviaUIState.Success).currentQuestionIndex]
+
+        Text(
+            text = questionBlock.question, modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+        )
+
+        questionBlock.options.forEachIndexed { index, trivia ->
+            Button(
+                onClick = {
+                    updatedIndex = index
+                    triviaQuestionViewModel.processIntent(
+                        TriviaIntent.SubmitAnswer(
+                            index
+                        )
+                    )
+                },
+                shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)).width(dimensionResource(id = R.dimen.element_xlarge))
+                    .border(
+                        dimensionResource(id = R.dimen.border_width),
+                        if (updatedIndex == index && questionBlock.selectedAnswer != -1) {
+                            if (updatedIndex == questionBlock.answer) Color.Green else Color.Red
+                        } else {
+                            Color.Gray
+                        },
+                        AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))
+                    )
+                    .shadow(
+                        elevation = dimensionResource(id = R.dimen.elevation_small),
+                        ambientColor =
+                            if (updatedIndex == index && questionBlock.selectedAnswer != -1) {
+                                if (updatedIndex == questionBlock.answer) LightGreen else LightRed
+                            } else {
+                                Color.Transparent
+                            },
+                        spotColor =
+                            if (updatedIndex == index && questionBlock.selectedAnswer != -1) {
+                                if (updatedIndex == questionBlock.answer) LightGreen else LightRed
+                            } else {
+                                Color.Gray
+                            }
+                    )
+            ) {
+                Text(
+                    text = trivia, color = Color.White
                 )
             }
         }
