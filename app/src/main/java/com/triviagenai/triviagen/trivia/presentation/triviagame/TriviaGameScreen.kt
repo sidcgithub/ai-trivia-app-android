@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.trivia.domain.model.SelectedAnswerState
 import com.triviagenai.triviagen.trivia.presentation.TriviaIntent
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.trivia.presentation.TriviaUIState
@@ -51,12 +52,15 @@ fun TriviaGameScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
                     questionBlock.options.forEachIndexed { index, trivia ->
                         Button(
                             onClick = {
-                                selectedIndex = index
-                                triviaQuestionViewModel.processIntent(
-                                    TriviaIntent.SubmitAnswer(
-                                        index
+                                if (questionBlock.selectedAnswer is SelectedAnswerState.Unanswered) {
+                                    selectedIndex = index
+
+                                    triviaQuestionViewModel.processIntent(
+                                        TriviaIntent.SubmitAnswer(
+                                            index
+                                        )
                                     )
-                                )
+                                }
                             },
                             shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                             modifier = Modifier
@@ -64,7 +68,7 @@ fun TriviaGameScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
                                 .width(dimensionResource(id = R.dimen.element_xlarge))
                                 .border(
                                     dimensionResource(id = R.dimen.border_width),
-                                    if (selectedIndex == index && questionBlock.selectedAnswer != -1) {
+                                    if (selectedIndex == index && questionBlock.selectedAnswer !is SelectedAnswerState.Unanswered) {
                                         if (selectedIndex == questionBlock.answer) Color.Green else Color.Red
                                     } else {
                                         Color.Gray
@@ -73,12 +77,12 @@ fun TriviaGameScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
                                 )
                                 .shadow(
                                     elevation = dimensionResource(id = R.dimen.elevation_small),
-                                    ambientColor = if (selectedIndex == index && questionBlock.selectedAnswer != -1) {
+                                    ambientColor = if (selectedIndex == index && questionBlock.selectedAnswer !is SelectedAnswerState.Unanswered) {
                                         if (selectedIndex == questionBlock.answer) LightGreen else LightRed
                                     } else {
                                         Color.Transparent
                                     },
-                                    spotColor = if (selectedIndex == index && questionBlock.selectedAnswer != -1) {
+                                    spotColor = if (selectedIndex == index && questionBlock.selectedAnswer !is SelectedAnswerState.Unanswered) {
                                         if (selectedIndex == questionBlock.answer) LightGreen else LightRed
                                     } else {
                                         Color.Gray
