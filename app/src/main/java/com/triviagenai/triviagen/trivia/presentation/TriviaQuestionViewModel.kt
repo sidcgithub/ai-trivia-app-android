@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.triviagenai.triviagen.trivia.domain.usecase.GetTriviaQuestionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +16,22 @@ import javax.inject.Inject
 class TriviaQuestionViewModel @Inject constructor(
     private val getTriviaQuestionsUseCase: GetTriviaQuestionsUseCase
 ) : ViewModel() {
+
+    private val categories = listOf(
+        "History",
+        "Geography",
+        "Science",
+        "Mathematics",
+        "Philosophy",
+        "Art",
+        "Sports",
+        "Literature",
+        "Technology",
+        "Economics",
+        "Politics",
+        "Culture",
+        "Miscellaneous"
+    )
 
     companion object {
         const val POINTS = 5
@@ -29,16 +46,12 @@ class TriviaQuestionViewModel @Inject constructor(
             initialValue = TriviaUIState.Loading
         )
 
-    init {
-        fetchTriviaQuestions("Science")
-    }
-
-    private fun fetchTriviaQuestions(topic: String) {
+    fun fetchTriviaQuestions(topic: String) {
         viewModelScope.launch {
             _uiState.value = TriviaUIState.Loading
             getTriviaQuestionsUseCase(topic).collect { result ->
                 result?.onSuccess { questions ->
-                    _uiState.value = TriviaUIState.Success(questions, 0, 0)
+                    _uiState.value = TriviaUIState.Success(questions.toMutableList(), 0, 0)
                 }?.onFailure { exception ->
                     _uiState.value = TriviaUIState.Error(exception.message ?: "Unknown error")
                 } ?: run { _uiState.value = TriviaUIState.Loading }
@@ -46,9 +59,13 @@ class TriviaQuestionViewModel @Inject constructor(
         }
     }
 
+    fun fetchRandomTriviaRoundQuestions() {
+        fetchTriviaQuestions(categories.random())
+    }
+
     fun processIntent(intent: TriviaIntent) {
         when (intent) {
-            is TriviaIntent.SubmitAnswer -> submitAnswer(intent.selectedOptionIndex)
+            is TriviaIntent.SubmitAnswer -> viewModelScope.launch { submitAnswer(intent.selectedOptionIndex) }
             TriviaIntent.NextQuestion -> nextQuestion()
         }
     }
@@ -63,14 +80,17 @@ class TriviaQuestionViewModel @Inject constructor(
         }
     }
 
-    private fun submitAnswer(selectedOptionIndex: Int) {
+    private suspend fun submitAnswer(selectedOptionIndex: Int) {
         val currentState = _uiState.value
         if (currentState is TriviaUIState.Success) {
             val currentQuestion = currentState.questions[currentState.currentQuestionIndex]
+            currentState.questions[currentState.currentQuestionIndex] =
+                currentQuestion.copy(selectedAnswer = selectedOptionIndex)
             if (selectedOptionIndex == currentQuestion.answer) {
                 _uiState.value =
                     currentState.copy(score = currentState.score + POINTS)
             }
+            delay(2000)
             nextQuestion()
         }
     }
