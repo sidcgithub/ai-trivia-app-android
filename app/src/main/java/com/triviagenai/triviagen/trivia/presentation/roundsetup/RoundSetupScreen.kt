@@ -12,6 +12,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,11 +28,13 @@ import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.trivia.presentation.TriviaIntent
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
+import com.triviagenai.triviagen.trivia.presentation.TriviaUIState
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
 @Composable
 fun RoundSetupScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
     var topicValue by remember { mutableStateOf("") }
+    val uiState by triviaQuestionViewModel.uiState.collectAsState()
 
     TriviaGenScaffold(backNavigationIcon = true) {
         Column(
@@ -60,7 +63,9 @@ fun RoundSetupScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
             )
 
             ElevatedButton(
-                onClick = { triviaQuestionViewModel.fetchTriviaQuestions(topicValue) },
+                onClick = {
+                    triviaQuestionViewModel.fetchTriviaQuestions(topicValue)
+                },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
