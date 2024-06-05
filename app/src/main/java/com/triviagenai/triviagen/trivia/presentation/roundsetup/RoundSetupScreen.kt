@@ -25,10 +25,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
 @Composable
-fun RoundSetupScreen() {
+fun RoundSetupScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
     var topicValue by remember { mutableStateOf("") }
 
     TriviaGenScaffold(backNavigationIcon = true) {
@@ -58,7 +59,7 @@ fun RoundSetupScreen() {
             )
 
             ElevatedButton(
-                onClick = { /*TODO*/ },
+                onClick = { triviaQuestionViewModel.fetchTriviaQuestions(topicValue) },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
@@ -79,7 +80,7 @@ fun RoundSetupScreen() {
             )
 
             ElevatedButton(
-                onClick = { /*TODO*/ },
+                onClick = { triviaQuestionViewModel.fetchRandomTriviaRoundQuestions() },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))

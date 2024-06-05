@@ -48,11 +48,11 @@ fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
                     .padding(dimensionResource(id = R.dimen.padding_medium))
             )
 
-            val checkedOption = 1 //TODO replace with state with real user answer. This value is for testing only.
+            val checkedOption = triviaQuestion.selectedAnswer
 
-            for (i in 0..3) {
+            triviaQuestion.options.forEachIndexed { i, option ->
                 Text(
-                    text = triviaQuestion.options[i],
+                    text = option,
                     modifier = Modifier
                         .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
                         .background(
@@ -60,7 +60,7 @@ fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
                             AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))
                         )
                         .border(
-                            width = 1.dp,
+                            width = dimensionResource(id = R.dimen.border_width),
                             color = if (i == triviaQuestion.answer) Color.Green else if (checkedOption == i) Color.Red else Color.Transparent,
                             shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))
                         )
