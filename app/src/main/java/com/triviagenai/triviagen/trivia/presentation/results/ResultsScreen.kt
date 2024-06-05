@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
+import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel.Companion.POINTS
 import com.triviagenai.triviagen.trivia.presentation.TriviaUIState
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
@@ -48,6 +50,17 @@ fun ResultsScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
             }
         }
     }
+    val questionsSize: Int by remember {
+        when (state.value) {
+            is TriviaUIState.Success -> {
+                mutableIntStateOf((state.value as TriviaUIState.Success).questions.size)
+            }
+
+            else -> {
+                mutableIntStateOf(0)
+            }
+        }
+    }
 
     TriviaGenScaffold {
         Column(
@@ -60,7 +73,7 @@ fun ResultsScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator(
-                    progress = score / 25,
+                    progress = score / (POINTS * questionsSize),
                     color = if (score > 0.5f) Color.Green else Color.Red,
                     strokeWidth = dimensionResource(id = R.dimen.element_small),
                     modifier = Modifier.size(dimensionResource(id = R.dimen.element_large)),
