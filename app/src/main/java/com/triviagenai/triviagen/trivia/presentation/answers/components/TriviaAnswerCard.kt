@@ -24,6 +24,8 @@ import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.trivia.domain.model.SelectedAnswerState
 import com.triviagenai.triviagen.trivia.domain.model.TriviaQuestion
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
+import com.triviagenai.triviagen.ui.theme.TriviaGreen
+import com.triviagenai.triviagen.ui.theme.TriviaRed
 
 @Composable
 fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
@@ -62,9 +64,9 @@ fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
                             )
                             .border(
                                 width = dimensionResource(id = R.dimen.border_width),
-                                color = if (i == triviaQuestion.answer) Color.Green
+                                color = if (i == triviaQuestion.answer) TriviaGreen
                                 else {
-                                    if (selectedOption == i) Color.Red
+                                    if (selectedOption == i) TriviaRed
                                     else Color.Transparent
                                 },
                                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))

@@ -35,6 +35,8 @@ import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel.Companion.POINTS
 import com.triviagenai.triviagen.trivia.presentation.TriviaUIState
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
+import com.triviagenai.triviagen.ui.theme.TriviaGreen
+import com.triviagenai.triviagen.ui.theme.TriviaRed
 
 @Composable
 fun ResultsScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
@@ -74,7 +76,7 @@ fun ResultsScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
             ) {
                 CircularProgressIndicator(
                     progress = score / (POINTS * questionsSize),
-                    color = if (score > 0.5f) Color.Green else Color.Red,
+                    color = if (score > 0.5f) TriviaGreen else TriviaRed,
                     strokeWidth = dimensionResource(id = R.dimen.element_small),
                     modifier = Modifier.size(dimensionResource(id = R.dimen.element_large)),
                     strokeCap = StrokeCap.Round
