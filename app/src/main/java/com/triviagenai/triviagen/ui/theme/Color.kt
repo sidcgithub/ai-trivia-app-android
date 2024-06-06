@@ -15,3 +15,5 @@ val DarkPurple = Color(0xFF460063)
 
 val LightGreen = Color(0xFF6AFF6A)
 val LightRed = Color(0xFFFF6363)
+val TriviaGreen = Color(0xFF01BB09)
+val TriviaRed = Color(0xFFAB0000)
