@@ -22,11 +22,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.trivia.domain.model.SelectedAnswerState
 import com.triviagenai.triviagen.trivia.presentation.TriviaIntent
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.trivia.presentation.TriviaUIState
 import com.triviagenai.triviagen.ui.theme.LightGreen
 import com.triviagenai.triviagen.ui.theme.LightRed
+import com.triviagenai.triviagen.ui.theme.TriviaGreen
+import com.triviagenai.triviagen.ui.theme.TriviaRed
 
 @Composable
 fun TriviaGameScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
@@ -37,6 +40,7 @@ fun TriviaGameScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
             is TriviaUIState.Success -> DisplayGameContent(
                 triviaRound,
                 selectedIndex,
+                { index -> selectedIndex = index },
                 triviaQuestionViewModel
             )
 
@@ -61,36 +65,39 @@ fun TriviaGameScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
 private fun DisplayGameContent(
     triviaRound: TriviaUIState,
     selectedIndex: Int,
-    triviaQuestionViewModel: TriviaQuestionViewModel
+    setSelectedIndex: (Int) -> Unit,
+    viewModel: TriviaQuestionViewModel
 ) {
-    var updatedIndex = selectedIndex
-
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val questionBlock = (triviaRound as TriviaUIState.Success).questions[(triviaRound as TriviaUIState.Success).currentQuestionIndex]
+        val questionBlock =
+            (triviaRound as TriviaUIState.Success).questions[(triviaRound).currentQuestionIndex]
 
         Text(
-            text = questionBlock.question, modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+            text = questionBlock.question,
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
         )
 
         questionBlock.options.forEachIndexed { index, trivia ->
             Button(
                 onClick = {
-                    updatedIndex = index
-                    triviaQuestionViewModel.processIntent(
+                    setSelectedIndex(index)
+                    viewModel.processIntent(
                         TriviaIntent.SubmitAnswer(
                             index
                         )
                     )
                 },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
-                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)).width(dimensionResource(id = R.dimen.element_xlarge))
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    .width(dimensionResource(id = R.dimen.element_xlarge))
                     .border(
                         dimensionResource(id = R.dimen.border_width),
-                        if (updatedIndex == index && questionBlock.selectedAnswer != -1) {
-                            if (updatedIndex == questionBlock.answer) Color.Green else Color.Red
+                        if (selectedIndex == index && questionBlock.selectedAnswer != SelectedAnswerState.Unanswered) {
+                            if (selectedIndex == questionBlock.answer) TriviaGreen else TriviaRed
                         } else {
                             Color.Gray
                         },
@@ -99,17 +106,17 @@ private fun DisplayGameContent(
                     .shadow(
                         elevation = dimensionResource(id = R.dimen.elevation_small),
                         ambientColor =
-                            if (updatedIndex == index && questionBlock.selectedAnswer != -1) {
-                                if (updatedIndex == questionBlock.answer) LightGreen else LightRed
-                            } else {
-                                Color.Transparent
-                            },
+                        if (selectedIndex == index && questionBlock.selectedAnswer != SelectedAnswerState.Unanswered) {
+                            if (selectedIndex == questionBlock.answer) LightGreen else LightRed
+                        } else {
+                            Color.Transparent
+                        },
                         spotColor =
-                            if (updatedIndex == index && questionBlock.selectedAnswer != -1) {
-                                if (updatedIndex == questionBlock.answer) LightGreen else LightRed
-                            } else {
-                                Color.Gray
-                            }
+                        if (selectedIndex == index && questionBlock.selectedAnswer != SelectedAnswerState.Unanswered) {
+                            if (selectedIndex == questionBlock.answer) LightGreen else LightRed
+                        } else {
+                            Color.Gray
+                        }
                     )
             ) {
                 Text(
