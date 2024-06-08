@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -81,7 +83,12 @@ fun DisplayGameContent(
                             borderColors(LightGreen, LightRed, Color.Transparent, index),
                         spotColor =
                             borderColors(TriviaGreen, TriviaRed, Color.Gray, index)
-                    )
+                    ),
+                enabled = viewModel.isOptionButtonEnabled,
+                colors = ButtonDefaults.buttonColors(
+                    disabledContentColor = MaterialTheme.colorScheme.onBackground,
+                    disabledContainerColor = MaterialTheme.colorScheme.primary
+                )
             ) {
                 Text(
                     text = trivia, color = Color.White

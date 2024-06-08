@@ -1,5 +1,8 @@
 package com.triviagenai.triviagen.trivia.presentation
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
@@ -41,13 +44,15 @@ class TriviaQuestionViewModel @Inject constructor(
     }
 
     private val _uiState = MutableStateFlow<TriviaUIState>(TriviaUIState.Loading)
-
     val uiState: StateFlow<TriviaUIState> = _uiState
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = TriviaUIState.Loading
         )
+
+    var isOptionButtonEnabled by mutableStateOf(true)
+        private set
 
     fun fetchTriviaQuestions(topic: String) {
         viewModelScope.launch {
@@ -92,6 +97,7 @@ class TriviaQuestionViewModel @Inject constructor(
     }
 
     private suspend fun submitAnswer(selectedOptionIndex: Int, navController: NavHostController) {
+        isOptionButtonEnabled = false
         val currentState = _uiState.value
         if (currentState is TriviaUIState.Success) {
             val currentQuestion = currentState.questions[currentState.currentQuestionIndex]
@@ -107,6 +113,7 @@ class TriviaQuestionViewModel @Inject constructor(
             }
             delay(2000)
             nextQuestion(navController)
+            isOptionButtonEnabled = true
         }
     }
 }
