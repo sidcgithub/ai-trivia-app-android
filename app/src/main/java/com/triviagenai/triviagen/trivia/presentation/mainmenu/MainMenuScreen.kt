@@ -1,5 +1,6 @@
 package com.triviagenai.triviagen.trivia.presentation.mainmenu
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +12,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -18,11 +20,18 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
-import com.triviagenai.triviagen.core.presentation.navigation.Route
+import com.triviagenai.triviagen.core.presentation.ButtonData
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.core.presentation.navigation.Route
+import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 
 @Composable
-fun MainMenuScreen(navController: NavHostController) {
+fun MainMenuScreen(
+    navController: NavHostController,
+    triviaQuestionViewModel: TriviaQuestionViewModel
+) {
+    val activity = LocalContext.current as Activity
+
     TriviaGenScaffold {
         Column(
             modifier = Modifier
@@ -39,26 +48,35 @@ fun MainMenuScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_medium)))
 
-            TextButton(
-                onClick = {
-                    navController.navigate(
-                        Route.RoundSetupRoute
-                    )
+            val textButtonsData = listOf(
+                ButtonData(
+                    text = stringResource(R.string.quick_game),
+                    onClick = {
+                        navController.navigate(
+                            Route.RoundSetupRoute
+                        )
+                    }
+                ),
+                ButtonData(
+                    text = stringResource(R.string.options),
+                    onClick = {
+                        //TODO: navigate to options screen
+                    }
+                ),
+                ButtonData(
+                    text = stringResource(R.string.exit),
+                    onClick = {
+                        triviaQuestionViewModel.exitApp(activity)
+                    }
+                )
+            )
+
+            for(buttonData in textButtonsData) {
+                TextButton(
+                    onClick = buttonData.onClick
+                ) {
+                    Text(buttonData.text)
                 }
-            ) {
-                Text(stringResource(R.string.quick_game))
-            }
-
-            TextButton(
-                onClick = { /*navigates to the options screen*/ }
-            ) {
-                Text(stringResource(R.string.options))
-            }
-
-            TextButton(
-                onClick = {  } //TODO: This approach is wrong because crush when running navigation tests: val activity = LocalContext.current as MainActivity; activity.finish()
-            ) {
-                Text(stringResource(R.string.exit))
             }
         }
     }

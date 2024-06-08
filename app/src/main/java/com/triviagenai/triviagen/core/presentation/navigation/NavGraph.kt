@@ -24,7 +24,11 @@ fun NavGraph(
         startDestination = startDestination
     ) {
         composable<Route.MainMenuRoute> {
-            MainMenuScreen(navController = navController)
+            MainMenuScreen(
+                navController = navController,
+                triviaQuestionViewModel = triviaQuestionViewModel
+            )
+
         }
 
         composable<Route.RoundSetupRoute> {

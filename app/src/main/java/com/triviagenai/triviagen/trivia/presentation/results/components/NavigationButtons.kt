@@ -13,16 +13,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
+import com.triviagenai.triviagen.core.presentation.ButtonData
 import com.triviagenai.triviagen.core.presentation.navigation.Route
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
 @Composable
 fun NavigationButtons(navController: NavHostController) {
-    data class ButtonData(
-        val text: String,
-        val onClick: () -> Unit
-    )
-
     val buttonData = listOf(
         ButtonData(
             text = stringResource(R.string.retry),
