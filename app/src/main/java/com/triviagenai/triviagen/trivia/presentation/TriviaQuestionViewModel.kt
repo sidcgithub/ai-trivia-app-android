@@ -2,8 +2,12 @@ package com.triviagenai.triviagen.trivia.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
+import com.triviagenai.triviagen.core.presentation.navigation.Route
+import com.triviagenai.triviagen.trivia.domain.model.SelectedAnswerState
 import com.triviagenai.triviagen.trivia.domain.usecase.GetTriviaQuestionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +19,22 @@ import javax.inject.Inject
 class TriviaQuestionViewModel @Inject constructor(
     private val getTriviaQuestionsUseCase: GetTriviaQuestionsUseCase
 ) : ViewModel() {
+
+    private val categories = listOf(
+        "History",
+        "Geography",
+        "Science",
+        "Mathematics",
+        "Philosophy",
+        "Art",
+        "Sports",
+        "Literature",
+        "Technology",
+        "Economics",
+        "Politics",
+        "Culture",
+        "Miscellaneous"
+    )
 
     companion object {
         const val POINTS = 5
@@ -29,16 +49,16 @@ class TriviaQuestionViewModel @Inject constructor(
             initialValue = TriviaUIState.Loading
         )
 
-    init {
-        fetchTriviaQuestions("Science")
-    }
-
-    private fun fetchTriviaQuestions(topic: String) {
+    fun fetchTriviaQuestions(topic: String) {
         viewModelScope.launch {
             _uiState.value = TriviaUIState.Loading
+            if (topic.isEmpty()) {
+                _uiState.value = TriviaUIState.Error("Topic is empty")
+                return@launch
+            }
             getTriviaQuestionsUseCase(topic).collect { result ->
                 result?.onSuccess { questions ->
-                    _uiState.value = TriviaUIState.Success(questions, 0, 0)
+                    _uiState.value = TriviaUIState.Success(questions.toMutableList(), 0, 0)
                 }?.onFailure { exception ->
                     _uiState.value = TriviaUIState.Error(exception.message ?: "Unknown error")
                 } ?: run { _uiState.value = TriviaUIState.Loading }
@@ -46,37 +66,52 @@ class TriviaQuestionViewModel @Inject constructor(
         }
     }
 
+    private fun fetchRandomTriviaRoundQuestions() {
+        fetchTriviaQuestions(categories.random())
+    }
+
     fun processIntent(intent: TriviaIntent) {
         when (intent) {
-            is TriviaIntent.SubmitAnswer -> submitAnswer(intent.selectedOptionIndex)
-            TriviaIntent.NextQuestion -> nextQuestion()
+            is TriviaIntent.SubmitAnswer -> viewModelScope.launch { submitAnswer(intent.selectedOptionIndex, intent.navController) }
+            TriviaIntent.RandomTriviaRound -> fetchRandomTriviaRoundQuestions()
         }
     }
 
-    private fun nextQuestion() {
+    private fun nextQuestion(navController: NavHostController) {
         val currentState = uiState.value
         if (currentState is TriviaUIState.Success) {
             val nextIndex = currentState.currentQuestionIndex + 1
             if (nextIndex < currentState.questions.size) {
                 _uiState.value = currentState.copy(currentQuestionIndex = nextIndex)
+            } else {
+                navController.navigate(Route.ResultsRoute) {
+                    popUpTo(Route.TriviaGameRoute) { inclusive = true }
+                }
             }
         }
     }
 
-    private fun submitAnswer(selectedOptionIndex: Int) {
+    private suspend fun submitAnswer(selectedOptionIndex: Int, navController: NavHostController) {
         val currentState = _uiState.value
         if (currentState is TriviaUIState.Success) {
             val currentQuestion = currentState.questions[currentState.currentQuestionIndex]
+            currentState.questions[currentState.currentQuestionIndex] =
+                currentQuestion.copy(
+                    selectedAnswer = SelectedAnswerState.Answered(
+                        selectedOptionIndex
+                    )
+                )
             if (selectedOptionIndex == currentQuestion.answer) {
                 _uiState.value =
                     currentState.copy(score = currentState.score + POINTS)
             }
-            nextQuestion()
+            delay(2000)
+            nextQuestion(navController)
         }
     }
 }
 
 sealed class TriviaIntent {
-    data class SubmitAnswer(val selectedOptionIndex: Int) : TriviaIntent()
-    object NextQuestion : TriviaIntent()
+    data class SubmitAnswer(val selectedOptionIndex: Int, val navController: NavHostController) : TriviaIntent()
+    object RandomTriviaRound : TriviaIntent()
 }

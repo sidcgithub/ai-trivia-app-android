@@ -21,8 +21,11 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.triviagenai.triviagen.R
+import com.triviagenai.triviagen.trivia.domain.model.SelectedAnswerState
 import com.triviagenai.triviagen.trivia.domain.model.TriviaQuestion
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
+import com.triviagenai.triviagen.ui.theme.TriviaGreen
+import com.triviagenai.triviagen.ui.theme.TriviaRed
 
 @Composable
 fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
@@ -47,29 +50,34 @@ fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_medium))
             )
-
-            val checkedOption = 1 //TODO replace with state with real user answer. This value is for testing only.
-
-            for (i in 0..triviaQuestion.options.lastIndex) {
-                Text(
-                    text = triviaQuestion.options[i],
-                    modifier = Modifier
-                        .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
-                        .background(
-                            RoyalPurple,
-                            AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))
-                        )
-                        .border(
-                            width = 1.dp,
-                            color = if (i == triviaQuestion.answer) Color.Green else if (checkedOption == i) Color.Red else Color.Transparent,
-                            shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))
-                        )
-                        .height(dimensionResource(id = R.dimen.element_small))
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
+            if (triviaQuestion.selectedAnswer != SelectedAnswerState.Unanswered) {
+                val selectedOption =
+                    (triviaQuestion.selectedAnswer as SelectedAnswerState.Answered).answer
+                triviaQuestion.options.forEachIndexed { i, option ->
+                    Text(
+                        text = option,
+                        modifier = Modifier
+                            .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
+                            .background(
+                                RoyalPurple,
+                                AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))
+                            )
+                            .border(
+                                width = dimensionResource(id = R.dimen.border_width),
+                                color = if (i == triviaQuestion.answer) TriviaGreen
+                                else {
+                                    if (selectedOption == i) TriviaRed
+                                    else Color.Transparent
+                                },
+                                shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))
+                            )
+                            .height(dimensionResource(id = R.dimen.element_small))
+                            .fillMaxWidth()
+                            .padding(top = 5.dp),
+                        textAlign = TextAlign.Center
+                    )
+                    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
+                }
             }
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
         }

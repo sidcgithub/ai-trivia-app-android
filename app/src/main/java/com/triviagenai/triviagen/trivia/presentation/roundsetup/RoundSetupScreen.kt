@@ -27,12 +27,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
-import com.triviagenai.triviagen.core.presentation.navigation.Route
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.core.presentation.navigation.Route
+import com.triviagenai.triviagen.trivia.presentation.TriviaIntent
+import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
 @Composable
-fun RoundSetupScreen(navController: NavHostController) {
+fun RoundSetupScreen(
+    triviaQuestionViewModel: TriviaQuestionViewModel,
+    navController: NavHostController
+) {
     var topicValue by remember { mutableStateOf("") }
 
     TriviaGenScaffold(
@@ -67,7 +72,10 @@ fun RoundSetupScreen(navController: NavHostController) {
             )
 
             ElevatedButton(
-                onClick = { navController.navigate(Route.TriviaGameRoute) },
+                onClick = {
+                    triviaQuestionViewModel.fetchTriviaQuestions(topicValue)
+                    navController.navigate(Route.TriviaGameRoute)
+                },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
@@ -88,7 +96,10 @@ fun RoundSetupScreen(navController: NavHostController) {
             )
 
             ElevatedButton(
-                onClick = { navController.navigate(Route.TriviaGameRoute) },
+                onClick = {
+                    triviaQuestionViewModel.processIntent(TriviaIntent.RandomTriviaRound)
+                    navController.navigate(Route.TriviaGameRoute)
+                },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))

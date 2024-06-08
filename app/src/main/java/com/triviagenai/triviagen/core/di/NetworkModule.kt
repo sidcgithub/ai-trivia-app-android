@@ -40,7 +40,7 @@ object NetworkModule {
             .build()
         return Retrofit.Builder()
             // If running backend locally use device IP
-            .baseUrl("http://<IP>:8080/")
+            .baseUrl("http://192.168.0.38:8080")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()

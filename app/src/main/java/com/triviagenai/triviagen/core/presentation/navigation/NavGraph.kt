@@ -1,9 +1,11 @@
 package com.triviagenai.triviagen.core.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.trivia.presentation.answers.AnswersScreen
 import com.triviagenai.triviagen.trivia.presentation.mainmenu.MainMenuScreen
 import com.triviagenai.triviagen.trivia.presentation.results.ResultsScreen
@@ -15,6 +17,8 @@ fun NavGraph(
     navController: NavHostController,
     startDestination: Route
 ) {
+    val triviaQuestionViewModel: TriviaQuestionViewModel = hiltViewModel()
+
     NavHost(
         navController = navController,
         startDestination = startDestination
@@ -24,19 +28,31 @@ fun NavGraph(
         }
 
         composable<Route.RoundSetupRoute> {
-            RoundSetupScreen(navController = navController)
+            RoundSetupScreen(
+                navController = navController,
+                triviaQuestionViewModel = triviaQuestionViewModel
+            )
         }
 
         composable<Route.TriviaGameRoute> {
-            TriviaGameScreen(navController = navController)
+            TriviaGameScreen(
+                navController = navController,
+                triviaQuestionViewModel = triviaQuestionViewModel
+            )
         }
 
         composable<Route.ResultsRoute> {
-            ResultsScreen(navController = navController)
+            ResultsScreen(
+                triviaQuestionViewModel = triviaQuestionViewModel,
+                navController = navController
+            )
         }
 
         composable<Route.AnswersRoute> {
-            AnswersScreen(navController = navController)
+            AnswersScreen(
+                triviaQuestionViewModel = triviaQuestionViewModel,
+                navController = navController
+            )
         }
     }
 }
