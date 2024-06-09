@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -44,6 +45,9 @@ fun MainMenuScreen(
                 contentDescription = "App logo",
                 modifier = Modifier
                     .size(dimensionResource(id = R.dimen.element_large))
+                    .padding(
+                        top = dimensionResource(id = R.dimen.padding_large),
+                    )
             )
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_medium)))
@@ -73,9 +77,13 @@ fun MainMenuScreen(
 
             for(buttonData in textButtonsData) {
                 TextButton(
-                    onClick = buttonData.onClick
+                    onClick = buttonData.onClick,
+                    modifier = Modifier
+                        .padding(dimensionResource(id = R.dimen.padding_small))
                 ) {
-                    Text(buttonData.text)
+                    Text(
+                        buttonData.text
+                    )
                 }
             }
         }

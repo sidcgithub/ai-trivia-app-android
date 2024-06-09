@@ -33,7 +33,7 @@ fun TriviaScoreIndicator(
         )
 
         Text(
-            text = "Score: ${(score).toInt()}"
+            text = "Score: ${(score).toInt()}/${TriviaQuestionViewModel.POINTS * questionsSize}"
         )
     }
     Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_medium)))
