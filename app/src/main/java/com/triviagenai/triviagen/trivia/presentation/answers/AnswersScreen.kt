@@ -7,8 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
@@ -36,7 +35,7 @@ fun AnswersScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .semantics { contentDescription = "AnswersScreen" }
+                .testTag("AnswersScreen")
         ) {
             if(trivia.isEmpty()) {
                 item {
