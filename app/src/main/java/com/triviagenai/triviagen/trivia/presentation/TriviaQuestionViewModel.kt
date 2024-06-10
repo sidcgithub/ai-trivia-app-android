@@ -79,26 +79,22 @@ class TriviaQuestionViewModel @Inject constructor(
 
     fun processIntent(intent: TriviaIntent) {
         when (intent) {
-            is TriviaIntent.SubmitAnswer -> viewModelScope.launch { submitAnswer(intent.selectedOptionIndex, intent.navController) }
+            is TriviaIntent.SubmitAnswer -> viewModelScope.launch { submitAnswer(intent.selectedOptionIndex) }
             TriviaIntent.RandomTriviaRound -> fetchRandomTriviaRoundQuestions()
         }
     }
 
-    private fun nextQuestion(navController: NavHostController) {
+    private fun nextQuestion() {
         val currentState = uiState.value
         if (currentState is TriviaUIState.Success) {
             val nextIndex = currentState.currentQuestionIndex + 1
             if (nextIndex < currentState.questions.size) {
                 _uiState.value = currentState.copy(currentQuestionIndex = nextIndex)
-            } else {
-                navController.navigate(Route.ResultsRoute) {
-                    popUpTo(Route.TriviaGameRoute) { inclusive = true }
-                }
             }
         }
     }
 
-    private suspend fun submitAnswer(selectedOptionIndex: Int, navController: NavHostController) {
+    private suspend fun submitAnswer(selectedOptionIndex: Int) {
         isOptionButtonEnabled = false
         val currentState = _uiState.value
         if (currentState is TriviaUIState.Success) {
@@ -114,7 +110,7 @@ class TriviaQuestionViewModel @Inject constructor(
                     currentState.copy(score = currentState.score + POINTS)
             }
             delay(2000)
-            nextQuestion(navController)
+            nextQuestion()
             isOptionButtonEnabled = true
         }
     }

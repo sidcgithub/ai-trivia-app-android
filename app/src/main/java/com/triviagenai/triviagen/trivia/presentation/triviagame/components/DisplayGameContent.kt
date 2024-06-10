@@ -11,6 +11,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -20,6 +21,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
+import com.triviagenai.triviagen.core.presentation.navigation.Route
 import com.triviagenai.triviagen.trivia.domain.model.SelectedAnswerState
 import com.triviagenai.triviagen.trivia.presentation.TriviaIntent
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
@@ -47,6 +49,18 @@ fun DisplayGameContent(
             wrongAnswerColor
         else
             optionColor
+    }
+
+    LaunchedEffect(triviaRound.questions.size, triviaRound.currentQuestionIndex, questionBlock.selectedAnswer) {
+        if (triviaRound.questions.isNotEmpty() &&
+            triviaRound.questions.size - 1 == triviaRound.currentQuestionIndex &&
+            questionBlock.selectedAnswer != SelectedAnswerState.Unanswered) {
+            navController.navigate(Route.ResultsRoute) {
+                popUpTo(Route.TriviaGameRoute) {
+                    inclusive = true
+                }
+            }
+        }
     }
 
     Column(
