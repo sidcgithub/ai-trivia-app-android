@@ -57,7 +57,7 @@ fun RoundSetupScreen(
                     .padding(bottom = dimensionResource(id = R.dimen.padding_small)),
                 value = topicValue,
                 onValueChange = { topicValue = it },
-                label = { Text("Trivia Topic") },
+                label = { Text(stringResource(R.string.trivia_topic)) },
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.White,
                     unfocusedBorderColor = Color.White,
