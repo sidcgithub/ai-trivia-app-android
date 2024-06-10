@@ -8,7 +8,6 @@ import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
-import com.triviagenai.triviagen.core.presentation.navigation.Route
 import com.triviagenai.triviagen.trivia.domain.model.SelectedAnswerState
 import com.triviagenai.triviagen.trivia.domain.usecase.GetTriviaQuestionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,7 +1,6 @@
 package com.triviagenai.triviagen.core.data.api
 
 import com.triviagenai.triviagen.trivia.data.model.Round
-import com.triviagenai.triviagen.trivia.domain.model.TriviaQuestion
 import retrofit2.http.GET
 import retrofit2.http.Query
 
