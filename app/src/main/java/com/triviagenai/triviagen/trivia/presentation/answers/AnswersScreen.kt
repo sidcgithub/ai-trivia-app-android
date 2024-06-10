@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.trivia.presentation.TriviaUIState
 import com.triviagenai.triviagen.trivia.presentation.answers.components.TriviaAnswerCard
@@ -28,8 +29,7 @@ fun AnswersScreen(
     }
 
     TriviaGenScaffold(
-        backNavigationIcon = true,
-        navController = navController
+        navigationStatus = NavigationStatus.Enabled(navController)
     ) {
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,

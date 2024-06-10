@@ -22,6 +22,7 @@ import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.ButtonData
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
 import com.triviagenai.triviagen.core.presentation.navigation.Route
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 
@@ -32,7 +33,9 @@ fun MainMenuScreen(
 ) {
     val activity = LocalContext.current as Activity
 
-    TriviaGenScaffold {
+    TriviaGenScaffold(
+        navigationStatus = NavigationStatus.None
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

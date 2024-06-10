@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
 import com.triviagenai.triviagen.core.presentation.navigation.Route
 import com.triviagenai.triviagen.trivia.presentation.TriviaIntent
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
@@ -40,8 +41,7 @@ fun RoundSetupScreen(
     var topicValue by remember { mutableStateOf("") }
 
     TriviaGenScaffold(
-        backNavigationIcon = true,
-        navController = navController
+        navigationStatus = NavigationStatus.Enabled(navController)
     ) {
         Column(
             modifier = Modifier

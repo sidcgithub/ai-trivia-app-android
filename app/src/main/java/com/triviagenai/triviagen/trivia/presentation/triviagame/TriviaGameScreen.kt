@@ -13,8 +13,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.trivia.presentation.TriviaUIState
+import com.triviagenai.triviagen.trivia.presentation.results.components.NavigationButtons
 import com.triviagenai.triviagen.trivia.presentation.triviagame.components.DisplayGameContent
 
 @Composable
@@ -24,7 +26,9 @@ fun TriviaGameScreen(
 ) {
     val triviaRound by triviaQuestionViewModel.uiState.collectAsState()
     var selectedIndex by remember { mutableIntStateOf(-1) }
-    TriviaGenScaffold {
+    TriviaGenScaffold(
+        navigationStatus = NavigationStatus.None
+    ) {
         when (triviaRound) {
             is TriviaUIState.Success -> DisplayGameContent(
                 triviaRound,
