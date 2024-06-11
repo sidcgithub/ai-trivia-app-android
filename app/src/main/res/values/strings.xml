@@ -10,4 +10,5 @@
     <string name="view_answers">View Answers</string>
     <string name="home">Home</string>
     <string name="retry">Retry</string>
+    <string name="trivia_topic">Trivia topic</string>
 </resources>

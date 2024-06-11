@@ -20,12 +20,13 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.triviagenai.triviagen.R
+import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TriviaGenScaffold(
-    backNavigationIcon: Boolean = false,
+    navigationStatus: NavigationStatus,
     content: @Composable () -> Unit
 ) {
     Scaffold(
@@ -37,10 +38,10 @@ fun TriviaGenScaffold(
                     )
                 },
                 navigationIcon = {
-                    if(backNavigationIcon) {
+                    if(navigationStatus is NavigationStatus.Enabled) {
                         IconButton(
                             onClick = {
-
+                                navigationStatus.navController.popBackStack()
                             },
                         ) {
                             Icon(

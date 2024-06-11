@@ -12,7 +12,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,26 +19,34 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
+import com.triviagenai.triviagen.core.presentation.navigation.Route
 import com.triviagenai.triviagen.trivia.presentation.TriviaIntent
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
-import com.triviagenai.triviagen.trivia.presentation.TriviaUIState
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
 @Composable
-fun RoundSetupScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
+fun RoundSetupScreen(
+    triviaQuestionViewModel: TriviaQuestionViewModel,
+    navController: NavHostController
+) {
     var topicValue by remember { mutableStateOf("") }
-    val uiState by triviaQuestionViewModel.uiState.collectAsState()
 
-    TriviaGenScaffold(backNavigationIcon = true) {
+    TriviaGenScaffold(
+        navigationStatus = NavigationStatus.Enabled(navController)
+    ) {
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .testTag("RoundSetupScreen"),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -50,14 +57,15 @@ fun RoundSetupScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
                     .padding(bottom = dimensionResource(id = R.dimen.padding_small)),
                 value = topicValue,
                 onValueChange = { topicValue = it },
-                label = { Text("Label") },
+                label = { Text(stringResource(R.string.trivia_topic)) },
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.White,
                     unfocusedBorderColor = Color.White,
                     focusedTextColor = Color.White,
                     unfocusedTextColor = Color.White,
                     unfocusedLabelColor = Color.White,
-                    focusedLabelColor = Color.White
+                    focusedLabelColor = Color.White,
+                    cursorColor = Color.White
                 ),
                 singleLine = true
             )
@@ -65,6 +73,7 @@ fun RoundSetupScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
             ElevatedButton(
                 onClick = {
                     triviaQuestionViewModel.fetchTriviaQuestions(topicValue)
+                    navController.navigate(Route.TriviaGameRoute)
                 },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
@@ -86,7 +95,10 @@ fun RoundSetupScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
             )
 
             ElevatedButton(
-                onClick = { triviaQuestionViewModel.processIntent(TriviaIntent.RandomTriviaRound) },
+                onClick = {
+                    triviaQuestionViewModel.processIntent(TriviaIntent.RandomTriviaRound)
+                    navController.navigate(Route.TriviaGameRoute)
+                },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))

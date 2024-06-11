@@ -79,8 +79,6 @@ fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
                     Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
                 }
             }
-
-
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
         }
     }
