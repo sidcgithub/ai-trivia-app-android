@@ -35,6 +35,14 @@ val Typography = Typography(
         letterSpacing = 0.sp,
         color = Color.White
     ),
+    titleMedium = TextStyle(
+        fontFamily = karmaFontFamily,
+        fontWeight = FontWeight.W600,
+        fontSize = 24.sp,
+        lineHeight = 28.sp,
+        letterSpacing = 0.sp,
+        color = Color.White
+    ),
     labelSmall = TextStyle(
         fontFamily = karmaFontFamily,
         fontWeight = FontWeight.Medium,

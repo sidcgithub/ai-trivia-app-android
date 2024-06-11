@@ -1,7 +1,11 @@
 package com.triviagenai.triviagen.trivia.presentation
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.trivia.domain.model.SelectedAnswerState
 import com.triviagenai.triviagen.trivia.domain.usecase.GetTriviaQuestionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,13 +43,15 @@ class TriviaQuestionViewModel @Inject constructor(
     }
 
     private val _uiState = MutableStateFlow<TriviaUIState>(TriviaUIState.Loading)
-
     val uiState: StateFlow<TriviaUIState> = _uiState
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = TriviaUIState.Loading
         )
+
+    var isOptionButtonEnabled by mutableStateOf(true)
+        private set
 
     fun fetchTriviaQuestions(topic: String) {
         viewModelScope.launch {
@@ -86,6 +92,7 @@ class TriviaQuestionViewModel @Inject constructor(
     }
 
     private suspend fun submitAnswer(selectedOptionIndex: Int) {
+        isOptionButtonEnabled = false
         val currentState = _uiState.value
         if (currentState is TriviaUIState.Success) {
             val currentQuestion = currentState.questions[currentState.currentQuestionIndex]
@@ -101,11 +108,12 @@ class TriviaQuestionViewModel @Inject constructor(
             }
             delay(2000)
             nextQuestion()
+            isOptionButtonEnabled = true
         }
     }
 }
 
 sealed class TriviaIntent {
-    data class SubmitAnswer(val selectedOptionIndex: Int) : TriviaIntent()
+    data class SubmitAnswer(val selectedOptionIndex: Int, val navController: NavHostController) : TriviaIntent()
     object RandomTriviaRound : TriviaIntent()
 }

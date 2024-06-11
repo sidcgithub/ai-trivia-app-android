@@ -7,13 +7,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
+import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.trivia.presentation.TriviaUIState
 import com.triviagenai.triviagen.trivia.presentation.answers.components.TriviaAnswerCard
 
 @Composable
-fun AnswersScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
+fun AnswersScreen(
+    triviaQuestionViewModel: TriviaQuestionViewModel,
+    navController: NavHostController
+) {
     val trivia = triviaQuestionViewModel.uiState.collectAsState().value.let {
         if (it is TriviaUIState.Success) {
             it.questions
@@ -22,11 +28,14 @@ fun AnswersScreen(triviaQuestionViewModel: TriviaQuestionViewModel) {
         }
     }
 
-    TriviaGenScaffold(backNavigationIcon = true) {
+    TriviaGenScaffold(
+        navigationStatus = NavigationStatus.Enabled(navController)
+    ) {
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
+                .testTag("AnswersScreen")
         ) {
             if(trivia.isEmpty()) {
                 item {
