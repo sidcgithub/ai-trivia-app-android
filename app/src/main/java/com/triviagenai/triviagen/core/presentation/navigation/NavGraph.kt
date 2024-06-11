@@ -25,10 +25,8 @@ fun NavGraph(
     ) {
         composable<Route.MainMenuRoute> {
             MainMenuScreen(
-                navController = navController,
-                triviaQuestionViewModel = triviaQuestionViewModel
+                navController = navController
             )
-
         }
 
         composable<Route.RoundSetupRoute> {

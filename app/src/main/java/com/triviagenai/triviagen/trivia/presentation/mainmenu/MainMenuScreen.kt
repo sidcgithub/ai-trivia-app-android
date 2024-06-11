@@ -24,12 +24,10 @@ import com.triviagenai.triviagen.core.presentation.ButtonData
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
 import com.triviagenai.triviagen.core.presentation.navigation.Route
-import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 
 @Composable
 fun MainMenuScreen(
-    navController: NavHostController,
-    triviaQuestionViewModel: TriviaQuestionViewModel
+    navController: NavHostController
 ) {
     val activity = LocalContext.current as Activity
 
@@ -72,7 +70,7 @@ fun MainMenuScreen(
                 ButtonData(
                     text = stringResource(R.string.exit),
                     onClick = {
-                        triviaQuestionViewModel.exitApp(activity)
+                        activity.finishAffinity()
                     }
                 )
             )

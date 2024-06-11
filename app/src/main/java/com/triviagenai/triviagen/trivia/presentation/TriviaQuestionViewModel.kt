@@ -1,10 +1,8 @@
 package com.triviagenai.triviagen.trivia.presentation
 
-import android.app.Activity
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
@@ -112,11 +110,6 @@ class TriviaQuestionViewModel @Inject constructor(
             nextQuestion()
             isOptionButtonEnabled = true
         }
-    }
-
-
-    fun exitApp(activity: Activity) {
-        finishAffinity(activity)
     }
 }
 
