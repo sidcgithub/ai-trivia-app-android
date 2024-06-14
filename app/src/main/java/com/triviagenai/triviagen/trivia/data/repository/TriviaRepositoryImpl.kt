@@ -17,7 +17,6 @@ class TriviaRepositoryImpl @Inject constructor(private val apiService: TriviaGen
             val result = when (val response = apiService.getTriviaQuestions(topic)) {
                 is Round.TriviaRound -> Resource.Success(data = response)
                 is Round.Error -> Resource.Error(errorMessage = response.message)
-                else -> Resource.Error("Something went wrong...")
             }
             emit(result)
         } catch (e: Exception) {
