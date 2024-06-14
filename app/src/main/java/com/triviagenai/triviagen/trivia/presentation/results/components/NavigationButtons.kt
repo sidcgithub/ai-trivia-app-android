@@ -15,18 +15,25 @@ import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.ButtonData
 import com.triviagenai.triviagen.core.presentation.navigation.Route
+import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
 @Composable
-fun NavigationButtons(navController: NavHostController) {
+fun NavigationButtons(navController: NavHostController, viewModel: TriviaQuestionViewModel) {
     val buttonData = listOf(
         ButtonData(
             text = stringResource(R.string.retry),
-            onClick = { navController.navigate(Route.RoundSetupRoute) }
+            onClick = {
+                viewModel.reset()
+                navController.navigate(Route.RoundSetupRoute)
+            }
         ),
         ButtonData(
             text = stringResource(R.string.home),
-            onClick = { navController.navigate(Route.MainMenuRoute) }
+            onClick = {
+                viewModel.reset()
+                navController.navigate(Route.MainMenuRoute)
+            }
         )
     )
 

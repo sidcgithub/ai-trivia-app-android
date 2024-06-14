@@ -45,6 +45,7 @@ fun ResultsScreen(
             is TriviaUIState.Success -> {
                 mutableFloatStateOf((state.value as TriviaUIState.Success).score.toFloat())
             }
+
             else -> {
                 mutableFloatStateOf(0f)
             }
@@ -55,6 +56,7 @@ fun ResultsScreen(
             is TriviaUIState.Success -> {
                 mutableIntStateOf((state.value as TriviaUIState.Success).questions.size)
             }
+
             else -> {
                 mutableIntStateOf(0)
             }
@@ -95,7 +97,7 @@ fun ResultsScreen(
                 )
             }
 
-            NavigationButtons(navController)
+            NavigationButtons(navController, triviaQuestionViewModel)
         }
     }
 }
