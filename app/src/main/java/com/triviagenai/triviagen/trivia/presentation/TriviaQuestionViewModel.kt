@@ -111,9 +111,14 @@ class TriviaQuestionViewModel @Inject constructor(
             isOptionButtonEnabled = true
         }
     }
+
+    fun reset() {
+        _uiState.value = TriviaUIState.Loading
+    }
 }
 
 sealed class TriviaIntent {
-    data class SubmitAnswer(val selectedOptionIndex: Int, val navController: NavHostController) : TriviaIntent()
+    data class SubmitAnswer(val selectedOptionIndex: Int) : TriviaIntent()
+
     object RandomTriviaRound : TriviaIntent()
 }
