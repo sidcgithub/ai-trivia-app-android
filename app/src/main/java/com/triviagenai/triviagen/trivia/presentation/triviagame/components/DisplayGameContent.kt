@@ -42,19 +42,25 @@ fun DisplayGameContent(
     val questionBlock =
         (triviaRound as TriviaUIState.Success).questions[(triviaRound).currentQuestionIndex]
 
-    val borderColors: (correctAnswerColor: Color, wrongAnswerColor: Color, optionColor: Color, index: Int) -> Color = { correctAnswerColor, wrongAnswerColor, optionColor, index ->
-        if(index == questionBlock.answer && questionBlock.selectedAnswer != SelectedAnswerState.Unanswered)
-            correctAnswerColor
-        else if(selectedIndex == index && questionBlock.selectedAnswer != SelectedAnswerState.Unanswered)
-            wrongAnswerColor
-        else
-            optionColor
-    }
+    val borderColors: (correctAnswerColor: Color, wrongAnswerColor: Color, optionColor: Color, index: Int) -> Color =
+        { correctAnswerColor, wrongAnswerColor, optionColor, index ->
+            if (index == questionBlock.answer && questionBlock.selectedAnswer != SelectedAnswerState.Unanswered)
+                correctAnswerColor
+            else if (selectedIndex == index && questionBlock.selectedAnswer != SelectedAnswerState.Unanswered)
+                wrongAnswerColor
+            else
+                optionColor
+        }
 
-    LaunchedEffect(triviaRound.questions.size, triviaRound.currentQuestionIndex, questionBlock.selectedAnswer) {
+    LaunchedEffect(
+        triviaRound.questions.size,
+        triviaRound.currentQuestionIndex,
+        questionBlock.selectedAnswer
+    ) {
         if (triviaRound.questions.isNotEmpty() &&
             triviaRound.questions.size - 1 == triviaRound.currentQuestionIndex &&
-            questionBlock.selectedAnswer != SelectedAnswerState.Unanswered) {
+            questionBlock.selectedAnswer != SelectedAnswerState.Unanswered
+        ) {
             navController.navigate(Route.ResultsRoute) {
                 popUpTo(Route.TriviaGameRoute) {
                     inclusive = true
@@ -66,8 +72,7 @@ fun DisplayGameContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .testTag("TriviaGameScreen")
-        ,
+            .testTag("TriviaGameScreen"),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -80,10 +85,7 @@ fun DisplayGameContent(
                 onClick = {
                     setSelectedIndex(index)
                     viewModel.processIntent(
-                        TriviaIntent.SubmitAnswer(
-                            index,
-                            navController
-                        )
+                        TriviaIntent.SubmitAnswer(index)
                     )
                 },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
@@ -91,16 +93,16 @@ fun DisplayGameContent(
                     .padding(dimensionResource(id = R.dimen.padding_small))
                     .width(dimensionResource(id = R.dimen.element_xlarge))
                     .border(
-                        width = if(questionBlock.selectedAnswer != SelectedAnswerState.Unanswered && (index == questionBlock.answer || selectedIndex == index)) 2.dp else 1.dp,
+                        width = if (questionBlock.selectedAnswer != SelectedAnswerState.Unanswered && (index == questionBlock.answer || selectedIndex == index)) 2.dp else 1.dp,
                         color = borderColors(TriviaGreen, TriviaRed, Color.Gray, index),
                         shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))
                     )
                     .shadow(
                         elevation = dimensionResource(id = R.dimen.elevation_small),
                         ambientColor =
-                            borderColors(LightGreen, LightRed, Color.Transparent, index),
+                        borderColors(LightGreen, LightRed, Color.Transparent, index),
                         spotColor =
-                            borderColors(TriviaGreen, TriviaRed, Color.Gray, index)
+                        borderColors(TriviaGreen, TriviaRed, Color.Gray, index)
                     ),
                 enabled = viewModel.isOptionButtonEnabled,
                 colors = ButtonDefaults.buttonColors(
