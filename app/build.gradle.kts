@@ -68,17 +68,21 @@ val moshiVersion by extra("1.15.1")
 val moshiConverter by extra("2.9.0")
 val composeNavigation by extra("2.8.0-beta02")
 val serialization by extra("1.6.3")
+val navigationTesting by extra("2.7.7")
+val kotlinxCoroutines by extra("1.8.0")
 
 dependencies {
     implementation(platform("androidx.compose:compose-bom:$composeBomVersion"))
 
     implementation("androidx.core:core-ktx:$coreKtxVersion")
+    implementation("junit:junit:$junitVersion")
     testImplementation("junit:junit:$junitVersion")
     androidTestImplementation("androidx.test.ext:junit:$androidxJunitVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion")
     implementation("androidx.activity:activity-compose:$activityComposeVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutines")
 
     // Compose UI dependencies
     implementation("androidx.compose.ui:ui")
@@ -112,5 +116,5 @@ dependencies {
     // Navigation
     implementation("androidx.navigation:navigation-compose:$composeNavigation")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
-    androidTestImplementation("androidx.navigation:navigation-testing:2.7.7")
+    androidTestImplementation("androidx.navigation:navigation-testing:$navigationTesting")
 }
