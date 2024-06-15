@@ -55,11 +55,11 @@ class TriviaQuestionViewModel @Inject constructor(
 
     fun fetchTriviaQuestions(topic: String) {
         viewModelScope.launch {
-            _uiState.value = TriviaUIState.Loading
-            if (topic.isEmpty()) {
-                _uiState.value = TriviaUIState.Error("Topic is empty")
+            if (topic.isBlank()) {
+                _uiState.emit(TriviaUIState.Error("Topic is empty"))
                 return@launch
             }
+            _uiState.value = TriviaUIState.Loading
             getTriviaQuestionsUseCase(topic).collect { result ->
                 result?.onSuccess { questions ->
                     _uiState.value = TriviaUIState.Success(questions.toMutableList(), 0, 0)
