@@ -1,6 +1,5 @@
 package com.triviagenai.triviagen.core.presentation
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -30,9 +29,6 @@ fun TriviaGenScaffold(
     navigationStatus: NavigationStatus,
     content: @Composable () -> Unit
 ) {
-    BackHandler(enabled = true) {
-        // Do nothing
-    }
     Scaffold(
         topBar = {
             TopAppBar(
