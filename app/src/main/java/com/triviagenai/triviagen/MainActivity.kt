@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             TriviaGenTheme {
                 val navController = rememberNavController()
-                BackHandler {
+                BackHandler(enabled = true) {
                     // Do nothing
                 }
                 NavGraph(
