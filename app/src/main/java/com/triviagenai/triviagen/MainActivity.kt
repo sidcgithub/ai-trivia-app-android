@@ -18,7 +18,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             TriviaGenTheme {
                 val navController = rememberNavController()
-
                 NavGraph(
                     navController = navController,
                     startDestination = Route.MainMenuRoute,

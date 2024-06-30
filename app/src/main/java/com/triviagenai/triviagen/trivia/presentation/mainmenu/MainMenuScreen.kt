@@ -1,6 +1,7 @@
 package com.triviagenai.triviagen.trivia.presentation.mainmenu
 
 import android.app.Activity
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -30,7 +31,9 @@ fun MainMenuScreen(
     navController: NavHostController
 ) {
     val activity = LocalContext.current as Activity
-
+    BackHandler(enabled = true) {
+        // Do nothing
+    }
     TriviaGenScaffold(
         navigationStatus = NavigationStatus.None
     ) {
@@ -75,7 +78,7 @@ fun MainMenuScreen(
                 )
             )
 
-            for(buttonData in textButtonsData) {
+            for (buttonData in textButtonsData) {
                 TextButton(
                     onClick = buttonData.onClick,
                     modifier = Modifier

@@ -41,7 +41,11 @@ fun RoundSetupScreen(
     var topicValue by remember { mutableStateOf("") }
 
     TriviaGenScaffold(
-        navigationStatus = NavigationStatus.Enabled(navController)
+        navigationStatus = NavigationStatus.Enabled(navController,
+            backNav = {
+                navController.navigate(Route.MainMenuRoute)
+            }
+        )
     ) {
         Column(
             modifier = Modifier
