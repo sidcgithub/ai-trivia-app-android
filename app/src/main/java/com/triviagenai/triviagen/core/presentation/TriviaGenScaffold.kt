@@ -38,10 +38,10 @@ fun TriviaGenScaffold(
                     )
                 },
                 navigationIcon = {
-                    if(navigationStatus is NavigationStatus.Enabled) {
+                    if (navigationStatus is NavigationStatus.Enabled) {
                         IconButton(
                             onClick = {
-                                navigationStatus.navController.popBackStack()
+                                navigationStatus.backNav()
                             },
                         ) {
                             Icon(
