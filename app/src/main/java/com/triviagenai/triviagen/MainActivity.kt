@@ -2,6 +2,7 @@ package com.triviagenai.triviagen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
@@ -18,7 +19,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             TriviaGenTheme {
                 val navController = rememberNavController()
-
+                BackHandler {
+                    // Do nothing
+                }
                 NavGraph(
                     navController = navController,
                     startDestination = Route.MainMenuRoute,

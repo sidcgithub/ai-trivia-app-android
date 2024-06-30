@@ -25,14 +25,18 @@ fun NavigationButtons(navController: NavHostController, viewModel: TriviaQuestio
             text = stringResource(R.string.retry),
             onClick = {
                 viewModel.reset()
-                navController.navigate(Route.RoundSetupRoute)
+                navController.navigate(Route.RoundSetupRoute) {
+                    popUpTo(Route.ResultsRoute) { inclusive = true }
+                }
             }
         ),
         ButtonData(
             text = stringResource(R.string.home),
             onClick = {
                 viewModel.reset()
-                navController.navigate(Route.MainMenuRoute)
+                navController.navigate(Route.MainMenuRoute) {
+                    popUpTo(Route.ResultsRoute) { inclusive = true }
+                }
             }
         )
     )
