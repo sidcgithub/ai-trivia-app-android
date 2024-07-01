@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
-import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,7 +16,6 @@ import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.ButtonData
 import com.triviagenai.triviagen.core.presentation.navigation.Route
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
-import com.triviagenai.triviagen.ui.theme.RoyalPurple
 
 @Composable
 fun NavigationButtons(navController: NavHostController, viewModel: TriviaQuestionViewModel) {
@@ -38,7 +37,7 @@ fun NavigationButtons(navController: NavHostController, viewModel: TriviaQuestio
     )
 
     for (button in buttonData) {
-        ElevatedButton(
+        Button(
             onClick = button.onClick,
             shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
             modifier = Modifier
@@ -48,7 +47,6 @@ fun NavigationButtons(navController: NavHostController, viewModel: TriviaQuestio
         ) {
             Text(
                 text = button.text,
-                color = RoyalPurple,
                 fontWeight = FontWeight.Bold
             )
         }
