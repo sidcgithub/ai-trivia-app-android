@@ -17,4 +17,7 @@ sealed class Route {
 
     @Serializable
     data object AnswersRoute : Route()
+
+    @Serializable
+    data object OptionsScreen : Route()
 }
