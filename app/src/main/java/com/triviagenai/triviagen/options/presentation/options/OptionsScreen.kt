@@ -26,7 +26,7 @@ fun OptionsScreen(
     navController: NavController,
     optionsViewModel: OptionsViewModel
 ) {
-    val themeState by optionsViewModel.themeState.collectAsState()
+    val themeState by optionsViewModel.darkmodeTheme.collectAsState()
 
     TriviaGenScaffold(
         navigationStatus = NavigationStatus.Enabled(navController)
@@ -41,7 +41,7 @@ fun OptionsScreen(
             )
             Switch(
                 checked = themeState,
-                onCheckedChange = { optionsViewModel.changeTheme() },
+                onCheckedChange = { optionsViewModel.changeDarkmode() },
                 thumbContent = {
                     if(themeState) {
                         Icon(
