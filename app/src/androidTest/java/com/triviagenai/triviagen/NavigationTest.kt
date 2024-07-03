@@ -8,8 +8,12 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
+import com.triviagenai.options.FakeUserPreferenceRepository
 import com.triviagenai.triviagen.core.presentation.navigation.NavGraph
 import com.triviagenai.triviagen.core.presentation.navigation.Route
+import com.triviagenai.triviagen.options.domain.usecase.GetDarkmodePreferenceUseCase
+import com.triviagenai.triviagen.options.domain.usecase.SetDarkmodePreferenceUseCase
+import com.triviagenai.triviagen.options.presentation.options.OptionsViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -19,9 +23,15 @@ class NavigationTest {
     val composeTestRule = createComposeRule()
 
     private lateinit var navController: TestNavHostController
+    private lateinit var optionsViewModel: OptionsViewModel
+    private val repository = FakeUserPreferenceRepository()
+    private val getDarkmodePreferenceUseCase = GetDarkmodePreferenceUseCase(repository)
+    private val setDarkmodePreferenceUseCase = SetDarkmodePreferenceUseCase(repository)
 
     @Before
     fun setup() {
+        optionsViewModel = OptionsViewModel(getDarkmodePreferenceUseCase, setDarkmodePreferenceUseCase)
+
         composeTestRule.setContent {
             navController = TestNavHostController(LocalContext.current)
             navController.navigatorProvider.addNavigator(
