@@ -28,7 +28,11 @@ class NavigationTest {
                 ComposeNavigator()
             )
             
-            NavGraph(navController = navController, startDestination = Route.MainMenuRoute)
+            NavGraph(
+                navController = navController,
+                startDestination = Route.MainMenuRoute,
+                optionsViewModel = optionsViewModel
+            )
         }
     }
 

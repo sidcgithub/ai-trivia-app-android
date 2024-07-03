@@ -19,14 +19,13 @@ import androidx.navigation.NavController
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
-import com.triviagenai.triviagen.ui.theme.DarkPurple
 
 @Composable
 fun OptionsScreen(
     navController: NavController,
     optionsViewModel: OptionsViewModel
 ) {
-    val themeState by optionsViewModel.darkmodeTheme.collectAsState()
+    val themeState by optionsViewModel.darkmodeState.collectAsState()
 
     TriviaGenScaffold(
         navigationStatus = NavigationStatus.Enabled(navController)
@@ -47,8 +46,7 @@ fun OptionsScreen(
                         Icon(
                             painter = painterResource(id = R.drawable.dark_mode_icon_24dp),
                             contentDescription = "Dark mode",
-                            modifier = Modifier.size(18.dp),
-                            tint = DarkPurple
+                            modifier = Modifier.size(18.dp)
                         )
                     } else {
                         Icon(

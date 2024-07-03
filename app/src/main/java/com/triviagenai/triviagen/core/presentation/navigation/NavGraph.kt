@@ -17,7 +17,8 @@ import com.triviagenai.triviagen.trivia.presentation.triviagame.TriviaGameScreen
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    startDestination: Route
+    startDestination: Route,
+    optionsViewModel: OptionsViewModel
 ) {
     val triviaQuestionViewModel: TriviaQuestionViewModel = hiltViewModel()
 
@@ -60,8 +61,6 @@ fun NavGraph(
         }
 
         composable<Route.OptionsScreen> {
-            val optionsViewModel: OptionsViewModel = hiltViewModel()
-
             OptionsScreen(
                 navController = navController,
                 optionsViewModel = optionsViewModel

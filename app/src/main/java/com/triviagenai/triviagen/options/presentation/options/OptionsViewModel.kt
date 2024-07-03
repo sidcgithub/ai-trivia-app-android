@@ -14,7 +14,7 @@ class OptionsViewModel @Inject constructor(
     private val setDarkmodePreferenceUseCase: SetDarkmodePreferenceUseCase
 ) : ViewModel() {
     private val _darkmodeState = MutableStateFlow(false)
-    val darkmodeTheme = _darkmodeState.asStateFlow()
+    val darkmodeState = _darkmodeState.asStateFlow()
 
     init {
         _darkmodeState.value = getDarkmodePreferenceUseCase()
