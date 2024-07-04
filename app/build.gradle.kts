@@ -76,6 +76,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:$coreKtxVersion")
     implementation("junit:junit:$junitVersion")
+    implementation("androidx.test.ext:junit-ktx:1.2.1")
     testImplementation("junit:junit:$junitVersion")
     androidTestImplementation("androidx.test.ext:junit:$androidxJunitVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")

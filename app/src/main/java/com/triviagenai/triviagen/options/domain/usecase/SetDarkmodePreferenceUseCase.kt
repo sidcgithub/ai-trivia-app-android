@@ -7,6 +7,6 @@ class SetDarkmodePreferenceUseCase @Inject constructor(
     private val repository: UserPreferenceRepository
 ) {
     operator fun invoke(state: Boolean) {
-        repository.darkMode = state
+        repository.darkmode = state
     }
 }
