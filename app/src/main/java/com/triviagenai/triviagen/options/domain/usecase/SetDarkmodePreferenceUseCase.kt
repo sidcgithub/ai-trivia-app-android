@@ -6,7 +6,7 @@ import javax.inject.Inject
 class SetDarkmodePreferenceUseCase @Inject constructor(
     private val repository: UserPreferenceRepository
 ) {
-    operator fun invoke(state: Boolean) {
-        repository.darkmode = state
+    suspend operator fun invoke(state: Boolean) {
+        repository.setDarkmodeState(state)
     }
 }

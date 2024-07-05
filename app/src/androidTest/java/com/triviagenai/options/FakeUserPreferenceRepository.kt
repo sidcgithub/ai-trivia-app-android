@@ -5,7 +5,11 @@ import com.triviagenai.triviagen.options.domain.repository.UserPreferenceReposit
 class FakeUserPreferenceRepository(): UserPreferenceRepository {
     private var darkmodeState = false
 
-    override var darkmode: Boolean
-        get() = darkmodeState
-        set(value) { darkmodeState = !darkmodeState}
+    override suspend fun getDarkmodeState(): Boolean {
+        return darkmodeState
+    }
+
+    override suspend fun setDarkmodeState(value: Boolean) {
+        darkmodeState = !darkmodeState
+    }
 }
