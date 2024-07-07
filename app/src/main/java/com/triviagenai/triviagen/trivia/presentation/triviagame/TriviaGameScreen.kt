@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
@@ -23,6 +24,7 @@ fun TriviaGameScreen(
     triviaQuestionViewModel: TriviaQuestionViewModel,
     navController: NavHostController
 ) {
+    val modifier = Modifier.testTag("TriviaGameScreen")
     val triviaRound by triviaQuestionViewModel.uiState.collectAsState()
     var selectedIndex by remember { mutableIntStateOf(-1) }
     TriviaGenScaffold(
@@ -34,20 +36,21 @@ fun TriviaGameScreen(
                 selectedIndex,
                 { index -> selectedIndex = index },
                 triviaQuestionViewModel,
-                navController
+                navController,
+                modifier
             )
 
-            is TriviaUIState.Error -> Box(modifier = Modifier.fillMaxSize()) {
+            is TriviaUIState.Error -> Box(modifier = modifier.fillMaxSize()) {
                 Text(
                     text = (triviaRound as TriviaUIState.Error).message,
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
 
-            TriviaUIState.Loading -> Box(modifier = Modifier.fillMaxSize()) {
+            is TriviaUIState.Loading -> Box(modifier = Modifier.fillMaxSize()) {
                 Text(
                     text = "Loading...",
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = modifier.align(Alignment.Center)
                 )
             }
         }
