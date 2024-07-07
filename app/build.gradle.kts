@@ -70,6 +70,7 @@ val composeNavigation by extra("2.8.0-beta02")
 val serialization by extra("1.6.3")
 val navigationTesting by extra("2.7.7")
 val kotlinxCoroutines by extra("1.8.0")
+val mockito by extra("4.8.0")
 
 dependencies {
     implementation(platform("androidx.compose:compose-bom:$composeBomVersion"))
@@ -78,6 +79,8 @@ dependencies {
     implementation("junit:junit:$junitVersion")
     implementation("androidx.test.ext:junit-ktx:1.2.1")
     testImplementation("junit:junit:$junitVersion")
+    testImplementation("org.mockito:mockito-core:$mockito")
+    testImplementation("org.mockito:mockito-inline:$mockito")
     androidTestImplementation("androidx.test.ext:junit:$androidxJunitVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")
 
