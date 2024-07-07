@@ -84,6 +84,7 @@ fun RoundSetupScreen(
                     .padding(dimensionResource(id = R.dimen.padding_small))
                     .width(dimensionResource(id = R.dimen.element_xlarge))
                     .height(dimensionResource(id = R.dimen.element_height))
+                    .testTag("StartRoundButton")
             ) {
                 Text(
                     text = stringResource(R.string.start_round),
@@ -108,6 +109,7 @@ fun RoundSetupScreen(
                     .padding(dimensionResource(id = R.dimen.padding_small))
                     .width(dimensionResource(id = R.dimen.element_xlarge))
                     .height(dimensionResource(id = R.dimen.element_height))
+                    .testTag("RandomRoundButton")
             ) {
                 Text(
                     text = stringResource(R.string.random_round),
