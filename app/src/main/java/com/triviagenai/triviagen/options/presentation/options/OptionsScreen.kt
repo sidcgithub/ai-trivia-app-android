@@ -46,13 +46,13 @@ fun OptionsScreen(
                         Icon(
                             painter = painterResource(id = R.drawable.dark_mode_icon_24dp),
                             contentDescription = "Dark mode",
-                            modifier = Modifier.size(18.dp)
+                            modifier = Modifier.size(dimensionResource(id = R.dimen.icon_small))
                         )
                     } else {
                         Icon(
                             painter = painterResource(id = R.drawable.light_mode_icon_24dp),
                             contentDescription = "Light mode",
-                            modifier = Modifier.size(18.dp)
+                            modifier = Modifier.size(dimensionResource(id = R.dimen.icon_small))
                         )
                     }
                 }
