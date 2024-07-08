@@ -14,11 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
+import com.triviagenai.triviagen.core.presentation.navigation.Route
 
 @Composable
 fun OptionsScreen(
@@ -28,7 +28,12 @@ fun OptionsScreen(
     val themeState by optionsViewModel.darkmodeState.collectAsState()
 
     TriviaGenScaffold(
-        navigationStatus = NavigationStatus.Enabled(navController)
+        navigationStatus = NavigationStatus.Enabled(
+            navController,
+            backNav = {
+                navController.navigate(Route.MainMenuRoute)
+            }
+        )
     ) {
         Column(
             modifier = Modifier
