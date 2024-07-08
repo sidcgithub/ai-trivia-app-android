@@ -1,55 +1,20 @@
 package com.triviagenai.triviagen
 
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.navigation.compose.ComposeNavigator
-import androidx.navigation.testing.TestNavHostController
-import com.triviagenai.options.FakeUserPreferenceRepository
-import com.triviagenai.triviagen.core.presentation.navigation.NavGraph
-import com.triviagenai.triviagen.core.presentation.navigation.Route
-import com.triviagenai.triviagen.options.domain.usecase.GetDarkmodePreferenceUseCase
-import com.triviagenai.triviagen.options.domain.usecase.SetDarkmodePreferenceUseCase
-import com.triviagenai.triviagen.options.presentation.options.OptionsViewModel
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 class NavigationTest {
     @get:Rule
-    val composeTestRule = createComposeRule()
-
-    private lateinit var navController: TestNavHostController
-    private lateinit var optionsViewModel: OptionsViewModel
-    private val repository = FakeUserPreferenceRepository()
-    private val getDarkmodePreferenceUseCase = GetDarkmodePreferenceUseCase(repository)
-    private val setDarkmodePreferenceUseCase = SetDarkmodePreferenceUseCase(repository)
-
-    @Before
-    fun setup() {
-        optionsViewModel = OptionsViewModel(getDarkmodePreferenceUseCase, setDarkmodePreferenceUseCase)
-
-        composeTestRule.setContent {
-            navController = TestNavHostController(LocalContext.current)
-            navController.navigatorProvider.addNavigator(
-                ComposeNavigator()
-            )
-            
-            NavGraph(
-                navController = navController,
-                startDestination = Route.MainMenuRoute,
-                optionsViewModel = optionsViewModel
-            )
-        }
-    }
+    val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Test
     fun verifyStartDestination() {
-        composeTestRule
-            .onNodeWithContentDescription("MainMenuScreen")
+        composeTestRule.onNodeWithTag("MainMenuScreen")
             .assertIsDisplayed()
     }
 
@@ -60,7 +25,7 @@ class NavigationTest {
             .performClick()
 
         composeTestRule
-            .onNodeWithContentDescription("RoundSetupScreen")
+            .onNodeWithTag("RoundSetupScreen")
             .assertIsDisplayed()
     }
 
@@ -71,11 +36,11 @@ class NavigationTest {
             .performClick()
 
         composeTestRule
-            .onNodeWithText("Start Round")
+            .onNodeWithTag("StartRoundButton")
             .performClick()
 
         composeTestRule
-            .onNodeWithContentDescription("TriviaGameScreen")
+            .onNodeWithTag("TriviaGameScreen")
             .assertIsDisplayed()
     }
 
@@ -86,11 +51,11 @@ class NavigationTest {
             .performClick()
 
         composeTestRule
-            .onNodeWithText("Random Round")
+            .onNodeWithTag("RandomRoundButton")
             .performClick()
 
         composeTestRule
-            .onNodeWithContentDescription("TriviaGameScreen")
+            .onNodeWithTag("TriviaGameScreen")
             .assertIsDisplayed()
     }
 }
