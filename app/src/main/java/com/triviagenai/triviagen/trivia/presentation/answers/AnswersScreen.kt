@@ -29,7 +29,9 @@ fun AnswersScreen(
     }
 
     TriviaGenScaffold(
-        navigationStatus = NavigationStatus.Enabled(navController)
+        navigationStatus = NavigationStatus.Enabled(
+            navController,
+            backNav = { navController.navigateUp() })
     ) {
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -37,7 +39,7 @@ fun AnswersScreen(
                 .fillMaxSize()
                 .testTag("AnswersScreen")
         ) {
-            if(trivia.isEmpty()) {
+            if (trivia.isEmpty()) {
                 item {
                     Text(text = "Sorry, we couldn't display your answers")
                 }

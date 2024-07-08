@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -37,7 +36,8 @@ fun DisplayGameContent(
     selectedIndex: Int,
     setSelectedIndex: (Int) -> Unit,
     viewModel: TriviaQuestionViewModel,
-    navController: NavHostController
+    navController: NavHostController,
+    modifier: Modifier
 ) {
     val questionBlock =
         (triviaRound as TriviaUIState.Success).questions[(triviaRound).currentQuestionIndex]
@@ -70,9 +70,8 @@ fun DisplayGameContent(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .testTag("TriviaGameScreen"),
+        modifier = modifier
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
