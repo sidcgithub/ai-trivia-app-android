@@ -67,7 +67,9 @@ fun MainMenuScreen(
                 ButtonData(
                     text = stringResource(R.string.options),
                     onClick = {
-                        //TODO: navigate to options screen
+                        navController.navigate(
+                            Route.OptionsScreen
+                        )
                     }
                 ),
                 ButtonData(

@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.trivia.domain.model.SelectedAnswerState
 import com.triviagenai.triviagen.trivia.domain.model.TriviaQuestion
-import com.triviagenai.triviagen.ui.theme.RoyalPurple
 import com.triviagenai.triviagen.ui.theme.TriviaGreen
 import com.triviagenai.triviagen.ui.theme.TriviaRed
 
@@ -37,7 +36,7 @@ fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
                 horizontal = dimensionResource(id = R.dimen.padding_medium)
             ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
         )
     ) {
         Column(
@@ -58,10 +57,6 @@ fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
                         text = option,
                         modifier = Modifier
                             .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
-                            .background(
-                                RoyalPurple,
-                                AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))
-                            )
                             .border(
                                 width = dimensionResource(id = R.dimen.border_width),
                                 color = if (i == triviaQuestion.answer) TriviaGreen
@@ -73,6 +68,10 @@ fun TriviaAnswerCard(triviaQuestion: TriviaQuestion) {
                             )
                             .height(dimensionResource(id = R.dimen.element_small))
                             .fillMaxWidth()
+                            .background(
+                                color = MaterialTheme.colorScheme.background,
+                                shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner))
+                            )
                             .padding(top = 5.dp),
                         textAlign = TextAlign.Center
                     )

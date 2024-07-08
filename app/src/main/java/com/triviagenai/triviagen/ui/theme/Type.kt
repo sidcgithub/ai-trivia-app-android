@@ -1,7 +1,6 @@
 package com.triviagenai.triviagen.ui.theme
 
 import androidx.compose.material3.Typography
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -25,7 +24,6 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp,
-        color = Color.White
     ),
     titleLarge = TextStyle(
         fontFamily = karmaFontFamily,
@@ -33,7 +31,6 @@ val Typography = Typography(
         fontSize = 32.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.sp,
-        color = Color.White
     ),
     titleMedium = TextStyle(
         fontFamily = karmaFontFamily,
@@ -41,7 +38,6 @@ val Typography = Typography(
         fontSize = 24.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.sp,
-        color = Color.White
     ),
     labelSmall = TextStyle(
         fontFamily = karmaFontFamily,
@@ -49,15 +45,12 @@ val Typography = Typography(
         fontSize = 11.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp,
-        color = Color.White
     ),
-
     labelLarge = TextStyle(
         fontFamily = karmaFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 26.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp,
-        color = Color.White
     ),
 )

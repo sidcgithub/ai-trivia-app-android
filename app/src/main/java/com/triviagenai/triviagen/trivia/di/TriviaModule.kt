@@ -1,3 +1,5 @@
+@file:Suppress("unused", "unused")
+
 package com.triviagenai.triviagen.trivia.di
 
 import com.triviagenai.triviagen.trivia.data.repository.TriviaRepositoryImpl

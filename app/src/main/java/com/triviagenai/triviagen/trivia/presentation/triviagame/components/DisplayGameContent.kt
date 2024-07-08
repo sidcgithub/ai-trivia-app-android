@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -80,7 +80,7 @@ fun DisplayGameContent(
         )
 
         questionBlock.options.forEachIndexed { index, trivia ->
-            Button(
+            FilledTonalButton(
                 onClick = {
                     setSelectedIndex(index)
                     viewModel.processIntent(
@@ -98,19 +98,19 @@ fun DisplayGameContent(
                     )
                     .shadow(
                         elevation = dimensionResource(id = R.dimen.elevation_small),
-                        ambientColor =
-                        borderColors(LightGreen, LightRed, Color.Transparent, index),
-                        spotColor =
-                        borderColors(TriviaGreen, TriviaRed, Color.Gray, index)
+                        ambientColor = borderColors(LightGreen, LightRed, Color.Transparent, index),
+                        spotColor = borderColors(TriviaGreen, TriviaRed, Color.Gray, index)
                     ),
                 enabled = viewModel.isOptionButtonEnabled,
                 colors = ButtonDefaults.buttonColors(
-                    disabledContentColor = MaterialTheme.colorScheme.onBackground,
-                    disabledContainerColor = MaterialTheme.colorScheme.primary
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                    disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    disabledContentColor = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             ) {
                 Text(
-                    text = trivia, color = Color.White
+                    text = trivia
                 )
             }
         }
