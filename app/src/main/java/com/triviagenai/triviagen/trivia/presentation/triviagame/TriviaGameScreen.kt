@@ -1,5 +1,6 @@
 package com.triviagenai.triviagen.trivia.presentation.triviagame
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -7,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -18,6 +20,7 @@ import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
 import com.triviagenai.triviagen.trivia.presentation.TriviaUIState
 import com.triviagenai.triviagen.trivia.presentation.triviagame.components.DisplayGameContent
+import com.triviagenai.triviagen.trivia.presentation.triviagame.components.QuitTriviaAlertDialog
 
 @Composable
 fun TriviaGameScreen(
@@ -27,9 +30,22 @@ fun TriviaGameScreen(
     val modifier = Modifier.testTag("TriviaGameScreen")
     val triviaRound by triviaQuestionViewModel.uiState.collectAsState()
     var selectedIndex by remember { mutableIntStateOf(-1) }
+    val isShowingExitDialog = remember { mutableStateOf(false) }
     TriviaGenScaffold(
-        navigationStatus = NavigationStatus.None
+        navigationStatus = NavigationStatus.Enabled(
+            navController = navController,
+            backNav = { isShowingExitDialog.value = true }
+        )
     ) {
+        QuitTriviaAlertDialog(
+            isShowingExitDialog,
+            navController
+        )
+
+        BackHandler {
+            isShowingExitDialog.value = true
+        }
+
         when (triviaRound) {
             is TriviaUIState.Success -> DisplayGameContent(
                 triviaRound,

@@ -12,4 +12,8 @@
     <string name="retry">Retry</string>
     <string name="trivia_topic">Trivia topic</string>
     <string name="dark_theme">Dark theme</string>
+    <string name="do_you_really_want_to_leave_a_trivia">Do you really want to leave a trivia?</string>
+    <string name="leaving_a_trivia">Leaving a trivia</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
