@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -40,6 +41,7 @@ fun TriviaGenScaffold(
                             onClick = {
                                 navigationStatus.backNav()
                             },
+                            modifier = Modifier.testTag("TopAppBarBackNavigationButton")
                         ) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
