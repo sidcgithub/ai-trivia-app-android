@@ -58,4 +58,36 @@ class NavigationTest {
             .onNodeWithTag("TriviaGameScreen")
             .assertIsDisplayed()
     }
+
+    @Test
+    fun navigation_clickTopBarBackButtonInTriviaGameScreen_navigatesToRoundSetupScreen() {
+        composeTestRule
+            .onNodeWithText("Quick game")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithTag("RandomRoundButton")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithTag("TopAppBarBackNavigationButton")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithTag("QuitTriviaAlertDialogConfirmButton")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithTag("RoundSetupScreen")
+            .assertIsDisplayed()
+
+        composeTestRule
+            .activityRule.scenario.onActivity { activity ->
+                activity.onBackPressedDispatcher.onBackPressed()
+            }
+
+        composeTestRule
+            .onNodeWithTag("MainMenuScreen")
+            .assertIsDisplayed()
+    }
 }
