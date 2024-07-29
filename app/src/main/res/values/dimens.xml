@@ -10,6 +10,7 @@
     <dimen name="rounded_corner">8dp</dimen>
 
     <dimen name="element_small">34dp</dimen>
+    <dimen name="element_medium">160dp</dimen>
     <dimen name="element_large">200dp</dimen>
     <dimen name="element_xlarge">320dp</dimen>
 

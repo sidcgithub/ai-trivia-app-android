@@ -24,11 +24,11 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
 
             TriviaGenTheme(
-               darkTheme = isDarkTheme
+                darkTheme = isDarkTheme
             ) {
                 NavGraph(
                     navController = navController,
-                    startDestination = Route.MainMenuRoute,
+                    startDestination = Route.LoginRoute,
                     optionsViewModel = optionsViewModel
                 )
             }

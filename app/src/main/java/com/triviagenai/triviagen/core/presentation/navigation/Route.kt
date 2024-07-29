@@ -7,6 +7,9 @@ sealed class Route {
     @Serializable
     data object RegisterRoute : Route()
     @Serializable
+    data object LoginRoute : Route()
+
+    @Serializable
     data object MainMenuRoute : Route()
 
     @Serializable
