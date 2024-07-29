@@ -128,7 +128,7 @@ fun LoginScreen(
                 horizontalArrangement = Arrangement.End
             ) {
                 Text(
-                    text = "Forgot Password?",
+                    text = stringResource(R.string.forgot_password_label),
                 )
 
             }
