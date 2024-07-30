@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.triviagenai.triviagen.auth.presentation.login.LoginScreen
+import com.triviagenai.triviagen.auth.presentation.register.RegisterScreen
 import com.triviagenai.triviagen.options.presentation.options.OptionsScreen
 import com.triviagenai.triviagen.options.presentation.options.OptionsViewModel
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel

@@ -22,4 +22,6 @@
     <string name="login_button_label">Login</string>
     <string name="register_button_label">Register</string>
     <string name="submit_label">Submit</string>
+    <string name="forgot_password_label">Forgot Password?</string>
+    <string name="confirm_password_label">Confirm Password</string>
 </resources>

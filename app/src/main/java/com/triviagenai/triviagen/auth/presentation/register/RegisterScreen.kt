@@ -106,7 +106,7 @@ fun RegisterScreen(
                 onValueChange = { confirmPassword = it },
                 label = {
                     Text(
-                        text = stringResource(R.string.confirm_password),
+                        text = stringResource(R.string.confirm_password_label),
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 },
