@@ -5,6 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.triviagenai.triviagen.auth.presentation.register.RegisterScreen
 import com.triviagenai.triviagen.options.presentation.options.OptionsScreen
 import com.triviagenai.triviagen.options.presentation.options.OptionsViewModel
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
@@ -26,6 +27,11 @@ fun NavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
+        composable<Route.RegisterRoute> {
+            RegisterScreen(
+                navController = navController
+            )
+        }
         composable<Route.MainMenuRoute> {
             MainMenuScreen(
                 navController = navController
