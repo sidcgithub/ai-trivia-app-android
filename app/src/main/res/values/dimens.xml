@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <dimen name="icon_small">18dp</dimen>
+
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">32dp</dimen>
+
+    <dimen name="rounded_corner">8dp</dimen>
+
+    <dimen name="element_small">34dp</dimen>
+    <dimen name="element_large">200dp</dimen>
+    <dimen name="element_xlarge">320dp</dimen>
+
+    <dimen name="element_height">70dp</dimen>
+
+    <dimen name="spacer_medium">50dp</dimen>
+    <dimen name="elevation_small">8dp</dimen>
+    <dimen name="border_width">2dp</dimen>
+</resources>
