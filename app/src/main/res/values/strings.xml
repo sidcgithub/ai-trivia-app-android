@@ -16,4 +16,8 @@
     <string name="leaving_a_trivia">Leaving a trivia</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="submit_label">Submit</string>
 </resources>

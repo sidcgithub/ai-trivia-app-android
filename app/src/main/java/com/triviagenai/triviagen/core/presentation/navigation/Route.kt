@@ -3,6 +3,9 @@ package com.triviagenai.triviagen.core.presentation.navigation
 import kotlinx.serialization.Serializable
 
 sealed class Route {
+
+    @Serializable
+    data object RegisterRoute : Route()
     @Serializable
     data object MainMenuRoute : Route()
 
