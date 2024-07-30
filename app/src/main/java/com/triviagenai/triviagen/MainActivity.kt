@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
             ) {
                 NavGraph(
                     navController = navController,
-                    startDestination = Route.RegisterRoute,
+                    startDestination = Route.MainMenuRoute,
                     optionsViewModel = optionsViewModel
                 )
             }
