@@ -1,10 +1,14 @@
-package com.triviagenai.triviagen.auth.presentation.register
+package com.triviagenai.triviagen.auth.presentation.login
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -33,25 +37,31 @@ import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
+import com.triviagenai.triviagen.trivia.presentation.triviagame.components.QuitTriviaAlertDialog
 
 @Composable
-fun RegisterScreen(
+fun LoginScreen(
     navController: NavHostController
 ) {
+    val isShowingExitDialog = remember { mutableStateOf(false) }
     var userName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
     val scrollState = remember { ScrollState(0) }
     TriviaGenScaffold(
-        navigationStatus = NavigationStatus.Enabled(
-            navController = navController,
-            backNav = { navController.navigateUp() }
-        )
+        navigationStatus = NavigationStatus.None
     ) {
+        QuitTriviaAlertDialog(
+            isShowingExitDialog,
+            navController
+        )
+
+        BackHandler {
+            isShowingExitDialog.value = true
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .testTag("RegisterScreen")
+                .testTag("LoginScreen")
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -75,7 +85,7 @@ fun RegisterScreen(
                 onValueChange = { userName = it },
                 label = {
                     Text(
-                        text = stringResource(R.string.email_label),
+                        text = stringResource(R.string.username_label),
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 },
@@ -97,23 +107,6 @@ fun RegisterScreen(
                 visualTransformation = PasswordVisualTransformation(),
                 singleLine = true
             )
-            OutlinedTextField(
-                modifier = Modifier
-                    .width(dimensionResource(id = R.dimen.element_xlarge))
-                    .height(dimensionResource(id = R.dimen.element_height) + 10.dp) // without plus 10.dp the text field has a smaller height than the buttons
-                    .padding(bottom = dimensionResource(id = R.dimen.padding_small)),
-                value = confirmPassword,
-                onValueChange = { confirmPassword = it },
-                label = {
-                    Text(
-                        text = stringResource(R.string.confirm_password_label),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                },
-                visualTransformation = PasswordVisualTransformation(),
-                singleLine = true
-            )
-
             Button(
                 onClick = {
                 },
@@ -125,10 +118,38 @@ fun RegisterScreen(
                     .testTag("RandomRoundButton")
             ) {
                 Text(
-                    text = stringResource(R.string.submit_label),
+                    text = stringResource(R.string.login_button_label),
                     fontWeight = FontWeight.Bold
                 )
             }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_large)),
+                horizontalArrangement = Arrangement.End
+            ) {
+                Text(
+                    text = stringResource(R.string.forgot_password_label),
+                )
+
+            }
+            Button(
+                onClick = {
+                },
+                shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    .width(dimensionResource(id = R.dimen.element_xlarge))
+                    .height(dimensionResource(id = R.dimen.element_height))
+                    .testTag("RandomRoundButton")
+            ) {
+                Text(
+                    text = stringResource(R.string.register_button_label),
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+
         }
     }
 }
