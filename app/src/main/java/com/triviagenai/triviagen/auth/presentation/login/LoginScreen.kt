@@ -1,4 +1,4 @@
-package com.triviagenai.auth.presentation.login
+package com.triviagenai.triviagen.auth.presentation.login
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
@@ -45,6 +45,7 @@ fun LoginScreen(
 ) {
     val isShowingExitDialog = remember { mutableStateOf(false) }
     var userName by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     val scrollState = remember { ScrollState(0) }
     TriviaGenScaffold(
         navigationStatus = NavigationStatus.None
@@ -60,7 +61,7 @@ fun LoginScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .testTag("MainMenuScreen")
+                .testTag("LoginScreen")
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -95,8 +96,8 @@ fun LoginScreen(
                     .width(dimensionResource(id = R.dimen.element_xlarge))
                     .height(dimensionResource(id = R.dimen.element_height) + 10.dp) // without plus 10.dp the text field has a smaller height than the buttons
                     .padding(bottom = dimensionResource(id = R.dimen.padding_small)),
-                value = userName,
-                onValueChange = { userName = it },
+                value = password,
+                onValueChange = { password = it },
                 label = {
                     Text(
                         text = stringResource(R.string.password_label),
