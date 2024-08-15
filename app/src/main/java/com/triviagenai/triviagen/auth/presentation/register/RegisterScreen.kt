@@ -36,6 +36,7 @@ import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
 
 @Composable
 fun RegisterScreen(
+    signUpViewModel: SignUpViewModel,
     navController: NavHostController
 ) {
     var userName by remember { mutableStateOf("") }
@@ -116,6 +117,7 @@ fun RegisterScreen(
 
             Button(
                 onClick = {
+                    signUpViewModel.signUpUser(email = userName, password = userName)
                 },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
