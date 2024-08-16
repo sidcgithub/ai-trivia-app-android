@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
+import com.triviagenai.triviagen.core.data.api.LocalPropertiesLoader
 import com.triviagenai.triviagen.core.presentation.navigation.NavGraph
 import com.triviagenai.triviagen.core.presentation.navigation.Route
 import com.triviagenai.triviagen.options.presentation.options.OptionsViewModel
@@ -22,6 +23,8 @@ class MainActivity : ComponentActivity() {
             val optionsViewModel: OptionsViewModel = hiltViewModel()
             val isDarkTheme = optionsViewModel.darkmodeState.collectAsState().value
             val navController = rememberNavController()
+
+            LocalPropertiesLoader.loadProperties(applicationContext)
 
             TriviaGenTheme(
                 darkTheme = isDarkTheme

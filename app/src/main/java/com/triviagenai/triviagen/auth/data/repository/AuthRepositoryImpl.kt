@@ -6,7 +6,7 @@ import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.gotrue.providers.builtin.Email
 
 class AuthRepositoryImpl: AuthRepository {
-    val supabase = SupabaseClient.supabase
+    private val supabase = SupabaseClient.supabase
 
     override suspend fun registerUser(email: String, password: String) {
         supabase.auth.signUpWith(Email) {

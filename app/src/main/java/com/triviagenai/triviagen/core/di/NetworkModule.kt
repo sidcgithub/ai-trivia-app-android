@@ -4,8 +4,9 @@ import android.content.Context
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.triviagenai.triviagen.core.data.api.LocalPropertiesLoader
+import com.triviagenai.triviagen.core.data.api.LocalPropertyType
 import com.triviagenai.triviagen.core.data.api.TriviaGenApiService
-import com.triviagenai.triviagen.core.data.api.getIpAddress
 import com.triviagenai.triviagen.trivia.data.model.Round
 import dagger.Module
 import dagger.Provides
@@ -42,7 +43,7 @@ object NetworkModule {
             .writeTimeout(60, TimeUnit.SECONDS)
             .build()
         return Retrofit.Builder()
-            .baseUrl("http://${getIpAddress(context)}:8080")
+            .baseUrl("http://${LocalPropertiesLoader.getProperty(LocalPropertyType.IP_ADDRESS)}:8080")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()
