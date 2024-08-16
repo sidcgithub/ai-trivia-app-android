@@ -14,11 +14,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +36,7 @@ import androidx.navigation.NavHostController
 import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.core.presentation.TriviaGenScaffold
 import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
+import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterScreen(
@@ -43,11 +47,16 @@ fun RegisterScreen(
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
     val scrollState = remember { ScrollState(0) }
+
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
     TriviaGenScaffold(
         navigationStatus = NavigationStatus.Enabled(
             navController = navController,
             backNav = { navController.navigateUp() }
-        )
+        ),
+        snackbarHostState = { SnackbarHost(hostState = snackbarHostState) }
     ) {
         Column(
             modifier = Modifier
@@ -118,6 +127,9 @@ fun RegisterScreen(
             Button(
                 onClick = {
                     signUpViewModel.signUpUser(email = userName, password = userName)
+                    scope.launch {
+                        snackbarHostState.showSnackbar("Hello")
+                    }
                 },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),
                 modifier = Modifier
@@ -131,6 +143,7 @@ fun RegisterScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
+
         }
     }
 }

@@ -25,6 +25,7 @@ import com.triviagenai.triviagen.core.presentation.navigation.NavigationStatus
 @Composable
 fun TriviaGenScaffold(
     navigationStatus: NavigationStatus,
+    snackbarHostState: @Composable () -> Unit = {},
     content: @Composable () -> Unit
 ) {
     Scaffold(
@@ -54,7 +55,8 @@ fun TriviaGenScaffold(
                     }
                 }
             )
-        }
+        },
+        snackbarHost = snackbarHostState
     ) {
         Box(
             Modifier
