@@ -43,7 +43,7 @@ fun RegisterScreen(
     signUpViewModel: SignUpViewModel,
     navController: NavHostController
 ) {
-    var userName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
     val scrollState = remember { ScrollState(0) }
@@ -81,8 +81,8 @@ fun RegisterScreen(
                     .width(dimensionResource(id = R.dimen.element_xlarge))
                     .height(dimensionResource(id = R.dimen.element_height) + 10.dp) // without plus 10.dp the text field has a smaller height than the buttons
                     .padding(bottom = dimensionResource(id = R.dimen.padding_small)),
-                value = userName,
-                onValueChange = { userName = it },
+                value = email,
+                onValueChange = { email = it },
                 label = {
                     Text(
                         text = stringResource(R.string.email_label),
@@ -126,9 +126,9 @@ fun RegisterScreen(
 
             Button(
                 onClick = {
-                    signUpViewModel.signUpUser(email = userName, password = userName)
                     scope.launch {
-                        snackbarHostState.showSnackbar("Hello")
+                        val errorMessage = signUpViewModel.signUpUser(email = email, password = password, confirmPassword = confirmPassword)
+                        snackbarHostState.showSnackbar(errorMessage ?: "Check your e-mail for address verification")
                     }
                 },
                 shape = AbsoluteRoundedCornerShape(dimensionResource(id = R.dimen.rounded_corner)),

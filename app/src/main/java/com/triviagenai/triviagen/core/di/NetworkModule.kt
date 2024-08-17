@@ -1,6 +1,5 @@
 package com.triviagenai.triviagen.core.di
 
-import android.content.Context
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -11,7 +10,6 @@ import com.triviagenai.triviagen.trivia.data.model.Round
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -25,7 +23,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(@ApplicationContext context: Context): Retrofit {
+    fun provideRetrofit(): Retrofit {
         val moshi = Moshi.Builder()
             .add(
                 PolymorphicJsonAdapterFactory.of(Round::class.java, "type")
