@@ -24,4 +24,11 @@
     <string name="submit_label">Submit</string>
     <string name="forgot_password_label">Forgot Password?</string>
     <string name="confirm_password_label">Confirm Password</string>
+    <string name="check_your_e_mail_for_address_verification">Check your e-mail for address verification</string>
+    <string name="incorrect_form_of_e_mail">Incorrect form of e-mail</string>
+    <string name="password_cannot_be_empty">Password cannot be empty</string>
+    <string name="e_mail_cannot_be_empty">E-mail cannot be empty</string>
+    <string name="password_must_have_at_least_8_characters">Password must have at least 8 characters</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="something_went_wrong_please_try_again_later">Something went wrong. Please try again later</string>
 </resources>

@@ -1,7 +1,9 @@
 package com.triviagenai.triviagen.auth.presentation.register
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.triviagenai.triviagen.R
 import com.triviagenai.triviagen.auth.domain.usecase.SignUpUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.jan.supabase.gotrue.exception.AuthRestException
@@ -12,8 +14,8 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val signUpUserUseCase: SignUpUserUseCase
 ) : ViewModel() {
-    suspend fun signUpUser(email: String, password: String, confirmPassword: String): String? {
-        var errorMessage = validateData(email = email, password = password, confirmPassword = confirmPassword)
+    suspend fun signUpUser(email: String, password: String, confirmPassword: String, context: Context): String? {
+        var errorMessage = validateData(email = email, password = password, confirmPassword = confirmPassword, context = context)
 
         if(errorMessage == null) {
             errorMessage = viewModelScope.async {
@@ -21,7 +23,7 @@ class SignUpViewModel @Inject constructor(
                     signUpUserUseCase.invoke(email, password)
                     null
                 } catch (e: AuthRestException) {
-                    "Something went wrong. Please try again later"
+                    context.getString(R.string.something_went_wrong_please_try_again_later)
                 }
             }.await()
         }
@@ -34,25 +36,25 @@ class SignUpViewModel @Inject constructor(
      *
      * @return null if data is valid, otherwise returns error message
      */
-    private fun validateData(email: String, password: String, confirmPassword: String): String? {
+    private fun validateData(email: String, password: String, confirmPassword: String, context: Context): String? {
         if(email.isBlank()) {
-            return "E-mail cannot be empty"
+            return context.getString(R.string.e_mail_cannot_be_empty)
         }
 
         if(password.isBlank()) {
-            return "Password cannot be empty"
+            return context.getString(R.string.password_cannot_be_empty)
         }
 
         if(!isEmailValid(email)) {
-            return "Incorrect form of e-mail"
+            return context.getString(R.string.incorrect_form_of_e_mail)
         }
 
         if(password.length < 8) {
-            return "Password must have at least 8 characters"
+            return context.getString(R.string.password_must_have_at_least_8_characters)
         }
 
         if(password != confirmPassword) {
-            return "Passwords do not match"
+            return context.getString(R.string.passwords_do_not_match)
         }
 
         return null
