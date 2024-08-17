@@ -59,7 +59,7 @@ val junitVersion by extra("4.13.2")
 val androidxJunitVersion by extra("1.2.1")
 val espressoCoreVersion by extra("3.6.1")
 val lifecycleRuntimeKtxVersion by extra("2.8.0")
-val activityComposeVersion by extra("1.9.0")
+val activityComposeVersion by extra("1.9.1")
 val composeBomVersion by extra("2023.08.00")
 val hiltVersion by extra("2.51.1")
 val coroutineVersion by extra("1.7.1")
@@ -121,4 +121,10 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$composeNavigation")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
     androidTestImplementation("androidx.navigation:navigation-testing:$navigationTesting")
+
+    //Supabase
+    implementation(platform("io.github.jan-tennert.supabase:bom:2.5.4"))
+    implementation("io.github.jan-tennert.supabase:gotrue-kt")
+    implementation("io.ktor:ktor-client-cio:2.3.12")
+
 }

@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.triviagenai.triviagen.auth.presentation.login.LoginScreen
 import com.triviagenai.triviagen.auth.presentation.register.RegisterScreen
+import com.triviagenai.triviagen.auth.presentation.register.SignUpViewModel
 import com.triviagenai.triviagen.options.presentation.options.OptionsScreen
 import com.triviagenai.triviagen.options.presentation.options.OptionsViewModel
 import com.triviagenai.triviagen.trivia.presentation.TriviaQuestionViewModel
@@ -22,6 +23,7 @@ fun NavGraph(
     startDestination: Route,
     optionsViewModel: OptionsViewModel
 ) {
+    val signUpViewModel: SignUpViewModel = hiltViewModel()
     val triviaQuestionViewModel: TriviaQuestionViewModel = hiltViewModel()
 
     NavHost(
@@ -36,6 +38,7 @@ fun NavGraph(
 
         composable<Route.RegisterRoute> {
             RegisterScreen(
+                signUpViewModel = signUpViewModel,
                 navController = navController
             )
         }
